@@ -1,0 +1,31 @@
+<div class="bgcol">
+    <div class="register-contain">
+        <div class="d-flex">
+            <div class="reg-img">
+                <img src="./assets/auth_image.png" alt="">
+            </div>
+            <form [formGroup]="registerForm" (ngSubmit)="registerUser()" class="reg-form">
+                <h2>Register</h2>
+                <div class="pb-3 px-3 forminp">
+                    <label class="form-label">Name</label>
+                    <input class="form-control" type="text" formControlName="name" id="regName">
+                </div>
+                <div class="pb-3 px-3 forminp">
+                    <label class="form-label">Email</label>
+                    <input class="form-control" type="email" formControlName="email" id="email">
+                </div>
+                <div class="pb-3 px-3 forminp">
+                    <label class="form-label">Username</label>
+                    <input class="form-control" type="text" formControlName="username" id="username">
+                </div>
+                <div class="pb-3 px-3 forminp">
+                    <label class="form-label">Password</label>
+                    <input class="form-control" type="password" formControlName="password" id="password">
+                </div>
+                <div class="d-grid px-3">
+                    <button class="btn reg-btn" type="submit">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

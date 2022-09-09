@@ -1,0 +1,76 @@
+import { Component, OnInit } from '@angular/core';
+import { Form, FormBuilder, FormControl, Validators, FormArray, FormGroup } from '@angular/forms';
+import { AccountsService } from 'src/app/services/accounts/accounts.service';
+
+@Component({
+  selector: 'app-account-index',
+  templateUrl: './account-index.component.html',
+  styleUrls: ['./account-index.component.css'],
+})
+export class AccountIndexComponent implements OnInit {
+  accounts: any = [];
+  dtOptions: any = {};
+  constructor( private fb: FormBuilder, private accountsService: AccountsService ) {}
+
+  ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      serverSide: true,
+      processing: true,
+      pageLength: 10,
+      ajax: {
+        url: 'http://102.68.170.27/nip-mini/public/index.php/api/v1/accounts/datatable',
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+        type: 'POST',
+        contentType: 'application/json',
+        dataFilter: (resp: any) => {
+          let json = JSON.parse(resp);
+
+          console.log(JSON.parse(resp));
+
+          console.log('The received data from server: ', resp);
+          return JSON.stringify(json); // return JSON string
+        },
+      },
+      columns: [
+        { data: 'sno' },
+        { data: 'id' },
+        { data: 'client_id' },
+        { data: 'account_name' },
+        { data: 'account_number' },
+        { data: 'bank_code' },
+        { data: 'nibss_institution_code' },
+        { data: 'bvn' },
+        { data: 'kyc_level_id' },
+        { data: 'name_enquiry_id' },
+        { data: 'session_id' },
+        { data: 'mandate_ref' },
+        { data: 'created_at' },
+        { data: 'updated_at' },
+        { data: 'client_name' },
+      ],
+      dom: 'Bfrtip',
+      buttons: [
+        'columnsToggle',
+        'colvis',
+        'copy',
+        'print',
+        'excel',
+        // {
+        //   text: 'Some button',
+        //   key: '1',
+        //   action: () => {
+        //     alert('Button activated');
+        //   },
+        // },
+      ],
+      lengthMenu: [
+        [25, 50, 100, 200, -1],
+      ],
+    };
+  }
+}
+
+

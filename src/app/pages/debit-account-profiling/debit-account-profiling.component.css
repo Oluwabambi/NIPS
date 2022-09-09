@@ -1,0 +1,16 @@
+.main-content {
+    margin-left: 220px;
+    min-height: 100vh;
+    overflow: scroll;
+    padding-top: 10px;
+}
+form {
+    border: 1px solid cadetblue;
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 720px;
+    margin: auto;
+}
+/* input {
+    border-bottom: 1px solid gray;
+} */

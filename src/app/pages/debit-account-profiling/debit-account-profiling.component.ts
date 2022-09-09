@@ -1,0 +1,108 @@
+import { Component, OnInit } from '@angular/core';
+import { AccountsService } from 'src/app/services/accounts/accounts.service';
+import { FormControl, Validators, FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { ClientsService } from 'src/app/services/clients/clients.service';
+
+@Component({
+  selector: 'app-debit-account-profiling',
+  templateUrl: './debit-account-profiling.component.html',
+  styleUrls: ['./debit-account-profiling.component.css'],
+})
+export class DebitAccountProfilingComponent implements OnInit {
+  selectedBank?: number;
+  selectedClient?: number;
+  accountProfile: any = {};
+  banks: any = [];
+  clients: any = [];
+
+  constructor(
+    private accountsService: AccountsService,
+    private fb: FormBuilder,
+    private clientsService: ClientsService
+  ) {}
+
+  ngOnInit(): void {
+    this.form;
+    this.getClients();
+    this.getBanks();
+  }
+
+  accountForm = new FormGroup({
+    mandate_ref: new FormControl('', Validators.required),
+    account_number: new FormControl('', Validators.required),
+    bank_code: new FormControl(this.selectedBank, Validators.required),
+    client_id: new FormControl(this.selectedClient, Validators.required),
+  });
+
+  form = this.fb.group({
+    arrayData: this.fb.array([this.accountForm]),
+  });
+
+  get arrayData(): FormArray {
+    return this.form.controls['arrayData'] as FormArray;
+  }
+
+  addForm() {
+    const form = new FormGroup({
+      mandate_ref: new FormControl('', Validators.required),
+      account_number: new FormControl('', Validators.required),
+      bank_code: new FormControl(this.selectedBank, Validators.required),
+      client_id: new FormControl(this.selectedClient, Validators.required),
+    });
+    // this.selectedBank = this.selectedClient = undefined;
+    this.arrayData.push(form);
+  }
+
+  submit() {
+    console.log(this.form.value);
+    const formValue = this.form.value.arrayData as any[];
+    const data = {
+      mandate_ref: formValue.map((value) => value.mandate_ref),
+      account_number: formValue.map((value) => value.account_number),
+      bank_code: formValue.map((value) => value.bank_code),
+      client_id: formValue.map((value) => value.client_id),
+    };
+    console.log(data);
+    this.debitAccountProfiling(data);
+  }
+
+  delete(index: number) {
+    this.arrayData.removeAt(index);
+  }
+
+  debitAccountProfiling(data: any) {
+    this.accountProfile = {
+      ...data,
+    };
+
+    console.log(this.accountProfile);
+
+    // mandate_ref, account_num and bank_code in a form
+    // they all take inputs
+    // on add,
+
+    this.accountsService
+      .debitAccountProfiling(JSON.stringify(this.accountProfile))
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+      });
+  }
+
+  getClients() {
+    this.clientsService.clients().subscribe({
+      next: (res) => {
+        this.clients = res.data;
+      },
+    });
+  }
+
+  getBanks() {
+    this.accountsService.banks().subscribe({
+      next: (res) => {
+        this.banks = res.data;
+      },
+    });
+  }
+}

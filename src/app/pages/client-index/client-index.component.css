@@ -1,0 +1,9 @@
+.main-content {
+    margin-left: 220px;
+    min-height: 100vh;
+    overflow: scroll;
+}
+.table-contain {
+    width: 100%;
+    overflow: auto;
+}

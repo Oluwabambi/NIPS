@@ -1,0 +1,42 @@
+.bgcol {
+    /* background-image: linear-gradient(135deg, #4590ff 0%, purple 100%); */
+    background-color: #4590ff;
+    min-height: 100vh;
+    padding-top: 60px;
+}
+.register-contain {
+    max-width: 900px;
+    margin: 5rem auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+}
+.register-contain h2 {
+    text-align: center;
+}
+.reg-img, .reg-form {
+    width: 50%;
+}
+.reg-img img {
+    width: 100%;
+}
+.forminp {
+    border-radius: 3px;
+    position: relative;
+}
+input:focus {
+    box-shadow: none;
+}
+.reg-btn {
+    background-color: #404b5b;
+    color: white;
+}
+.reg-btn:hover {
+    border-color: #404b5b;
+    opacity: 0.9;
+}
+.border-red {
+    border-color: red;
+}

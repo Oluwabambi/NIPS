@@ -1,0 +1,46 @@
+<div class="contain">
+    <app-sidebar></app-sidebar>
+    <div class="main-content">
+      <div class="p-5">
+            <form [formGroup]="clientForm" class="pb-4" (ngSubmit)="storeClient()">
+                <div class="d-flex align-items-end pb-3">
+                    <div>
+                        <label for="">Client name:</label>
+                        <input class="form-control" type="text" formControlName="name">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Store</button>
+                </div>
+                <app-toggle-status [active]="toggled"></app-toggle-status>
+            </form>
+        <div class="table-contain">    
+          <table datatable #dTable [dtOptions]="dtOptions" class="row-border hover">
+            <thead>
+              <tr>
+                <th>sno</th>
+                <th>id</th>
+                <th>number_of_accounts_profiled</th>
+                <th>name</th>
+                <th>unique_id</th>
+                <th>is_active</th>
+                <th>created_at</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="persons?.length != 0">
+              <tr *ngFor="let person of persons">
+                <td>{{ person.sno }}</td>
+                <td>{{ person.id }}</td>
+                <td>{{ person.number_of_accounts_profiled }}</td>
+                <td>{{ person.name }}</td>
+                <td>{{ person.unique_id }}</td>
+                <td>{{ person.is_active }}</td>
+                <td>{{ person.created_at }}</td>
+              </tr>
+              <tr *ngIf="persons?.length == 0">
+                <td colspan="3" class="no-data-available">No data!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+</div>
+</div>

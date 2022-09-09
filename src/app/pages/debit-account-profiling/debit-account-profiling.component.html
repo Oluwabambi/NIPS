@@ -1,0 +1,36 @@
+<div class="contain">
+    <app-sidebar></app-sidebar>
+    <div class="main-content">
+        <!-- <ng-select [(ngModel)]="selectedBank">
+            <ng-option *ngFor="let bank of banks" [value]="bank.id">{{bank.bank_name}}</ng-option>
+        </ng-select> -->
+
+        <!-- <ng-select [items]="clients" bindLabel="name" bindValue="id" [(ngModel)]="selectedClient"></ng-select> -->
+        <form [formGroup]="form">
+            <h1 class="text-white">Debit Account Profiling</h1>
+            <ng-container formArrayName="arrayData">
+            <!-- <ng-container [formGroup]="accountForm"> -->
+                <ng-container *ngFor="let data of arrayData.controls; index as i">
+                    <div class="pb-3" [formGroupName]="i" >
+                        <input formControlName="mandate_ref" type="text">
+
+                        <input formControlName="account_number" type="text">
+                        
+                        <ng-select formControlName="bank_code">
+                            <ng-option *ngFor="let bank of banks" [value]="bank.bank_code">{{bank.bank_name}}</ng-option>
+                        </ng-select>
+                        
+                        <ng-select formControlName="client_id">
+                            <ng-option *ngFor="let client of clients" [value]="client.id">{{client.name}}</ng-option>
+                        </ng-select>
+                        <span>X</span>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <br>
+            <button class="btn btn-primary" (click)="addForm()">Add</button>
+        </form>
+
+        <button (click)="submit()" class="btn btn-primary">Send data</button>
+    </div>
+</div>

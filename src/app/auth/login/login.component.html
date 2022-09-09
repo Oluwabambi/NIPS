@@ -1,0 +1,29 @@
+<div class="bgcol">
+    <div class="register-contain">
+        <div class="d-flex">
+            <div class="reg-img">
+                <img src="./assets/auth_image.png" alt="">
+            </div>
+            <form [formGroup]="loginForm" (ngSubmit)="userLogin()" class="reg-form">
+                <h2>Login</h2>
+                <div *ngIf="invalidUser" class="text-danger text-center">Invalid username or password</div>
+                <div class="pb-3 px-3 forminp">
+                    <label class="form-label">Email</label>
+                    <input class="form-control" type="email" [ngClass]="{'border-red': loginForm.controls['email'].dirty && loginForm.hasError('required','email')}" formControlName="email" id="email">
+                    <span class="text-danger" *ngIf="loginForm.controls['email'].dirty && loginForm.hasError('required','email')">Email is required</span>
+                </div>
+                <div class="pb-3 px-3 forminp">
+                    <label class="form-label">Password</label>
+                    <input class="form-control" type="password" [ngClass]="{'border-red': loginForm.controls['password'].dirty && loginForm.hasError('required','password')}" formControlName="password" id="password">
+                    <span class="text-danger" *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')">Password is required</span>
+                </div>
+                <div class="d-grid px-3">
+                    <button [disabled]="loginForm.invalid || submitted" class="btn reg-btn" type="submit">
+                        <span *ngIf="submitted" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            {{ submitted  ? 'Loading' : 'Login'}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

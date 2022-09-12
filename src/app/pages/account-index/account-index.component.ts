@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormControl, Validators, FormArray, FormGroup } from '@angular/forms';
-import { AccountsService } from 'src/app/services/accounts/accounts.service';
 
 @Component({
   selector: 'app-account-index',
@@ -10,7 +8,7 @@ import { AccountsService } from 'src/app/services/accounts/accounts.service';
 export class AccountIndexComponent implements OnInit {
   accounts: any = [];
   dtOptions: any = {};
-  constructor( private fb: FormBuilder, private accountsService: AccountsService ) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -36,8 +34,7 @@ export class AccountIndexComponent implements OnInit {
       },
       columns: [
         { data: 'sno' },
-        { data: 'id' },
-        { data: 'client_id' },
+        { data: 'client_name' },
         { data: 'account_name' },
         { data: 'account_number' },
         { data: 'bank_code' },
@@ -45,29 +42,15 @@ export class AccountIndexComponent implements OnInit {
         { data: 'bvn' },
         { data: 'kyc_level_id' },
         { data: 'name_enquiry_id' },
-        { data: 'session_id' },
         { data: 'mandate_ref' },
         { data: 'created_at' },
         { data: 'updated_at' },
-        { data: 'client_name' },
       ],
-      dom: 'Bfrtip',
+      dom: 'lBfrtip',
       buttons: [
-        'columnsToggle',
-        'colvis',
         'copy',
         'print',
         'excel',
-        // {
-        //   text: 'Some button',
-        //   key: '1',
-        //   action: () => {
-        //     alert('Button activated');
-        //   },
-        // },
-      ],
-      lengthMenu: [
-        [25, 50, 100, 200, -1],
       ],
     };
   }

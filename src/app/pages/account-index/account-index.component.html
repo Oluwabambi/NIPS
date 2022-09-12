@@ -2,32 +2,32 @@
     <app-sidebar></app-sidebar>
     <div class="main-content">
         <div class="p-5">
+
+            <h1>Accounts</h1>
+            <app-debit-account-profiling></app-debit-account-profiling>
+                        
             <div class="table-contain">
                 <table datatable [dtOptions]="dtOptions" class="row-border hover">
                 <thead>
                     <tr>
-                    <th>sno</th>
-                    <th>id</th>
-                    <th>client_id</th>
-                    <th>account_name</th>
-                    <th>account_number</th>
-                    <th>bank code</th>
-                    <th>nibss_institution_code</th>
-                    <th>bvn</th>
-                    <th>kyc_level_id</th>
-                    <th>name_enquiry_id</th>
-                    <th>session_id</th>
-                    <th>mandate_ref</th>
-                    <th>created_at</th>
-                    <th>updated_at</th>
-                    <th>client_name</th>
+                    <th>S/No</th>
+                    <th>Client Name</th>
+                    <th>Account Name</th>
+                    <th>Account Number</th>
+                    <th>Bank Code</th>
+                    <th>NIBSS Institution Code</th>
+                    <th>BVN</th>
+                    <th>KYC Level ID</th>
+                    <th>Name Enquiry ID</th>
+                    <th>Mandate Reference</th>
+                    <th>Date Created</th>
+                    <th>Date Updated</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="accounts?.length != 0">
                     <tr *ngFor="let account of accounts">
                     <td>{{ account.sno }}</td>
-                    <td>{{ account.id }}</td>
-                    <td>{{ account.client_id }}</td>
+                    <td>{{ account.client_name }}</td>
                     <td>{{ account.account_name }}</td>
                     <td>{{ account.account_number }}</td>
                     <td>{{ account.bank_code }}</td>
@@ -35,11 +35,9 @@
                     <td>{{ account.bvn }}</td>
                     <td>{{ account.kyc_level_id }}</td>
                     <td>{{ account.name_enquiry_id }}</td>
-                    <td>{{ account.session_id }}</td>
                     <td>{{ account.mandate_ref }}</td>
                     <td>{{ account.created_at }}</td>
                     <td>{{ account.updated_at }}</td>
-                    <td>{{ account.client_name }}</td>
                     </tr>
                     <tr *ngIf="accounts?.length == 0">
                     <td colspan="3" class="no-data-available">No data!</td>

@@ -44,13 +44,8 @@ export class ApiHandlerService {
     });
   }
 
-  public postfile(path: string, data: any, base?: number): Observable<any> {
+  public postFile(path: string, data: any, base?: number): Observable<any> {
     path = `${this.baseUrl}/${path}`;
-    // return this.httpClient.post(path, data || {}, {
-    //   headers: this.header(),
-    //   reportProgress: true,
-    //   observe: 'events',
-    // });
     return this.httpClient.post(path, data || {}, {
       headers: this.headerForUpload(),
     });

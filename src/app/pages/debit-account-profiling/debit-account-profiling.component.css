@@ -4,13 +4,53 @@
     overflow: scroll;
     padding-top: 10px;
 }
-form {
-    border: 1px solid cadetblue;
-    border-radius: 10px;
-    padding: 30px;
-    max-width: 720px;
-    margin: auto;
+.client, .form {
+    padding-bottom: 5px;
 }
-/* input {
-    border-bottom: 1px solid gray;
-} */
+.inp {
+    width: 100%;
+    border: 1px solid #cccccd;
+    border-radius: 4px;
+    padding: 6px;
+}
+.sect {
+    position: relative;
+    border-top: 1px solid #cccccd;
+    padding: 7px;
+}
+.x-mark {
+    position: absolute;
+    right: 0;
+    top: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.dropz {
+    max-width: 20rem;
+    margin-bottom: 10px;
+    justify-content: center;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #333333b3;
+    z-index: 1;
+}
+.anim {
+    animation: showModal 0.5s linear;
+    top: 5%;
+    display: block;
+}
+@keyframes showModal {
+    from {
+        opacity: 0;
+        top: 0;
+    }
+    to {
+        opacity: 1;
+        top: 5%;
+    }
+}

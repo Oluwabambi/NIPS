@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2';
+import { Subject } from 'rxjs';
+declare const $: any;
+
 
 class DataTablesResponse {
   data!: any[];
@@ -17,15 +21,20 @@ class DataTablesResponse {
   styleUrls: ['client-index.component.css'],
 })
 export class ClientIndexComponent implements OnInit {
+
   toggled: boolean = false;
   submitted: boolean = false;
+  showAdd: boolean = false;
   dtOptions: any = {};
   persons: any = [];
-  perso: any = [];
-
   pageable: any;
 
-  constructor(private http: HttpClient, private clientsService: ClientsService, private fb: FormBuilder ) {}
+
+  constructor(
+    private http: HttpClient,
+    private clientsService: ClientsService,
+    private fb: FormBuilder
+  ) {}
 
   clientForm = this.fb.group({
     name: new FormControl('', Validators.required),
@@ -33,7 +42,7 @@ export class ClientIndexComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(localStorage.getItem('token'));
-    
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       serverSide: true,
@@ -51,7 +60,7 @@ export class ClientIndexComponent implements OnInit {
           // json.recordsFiltered = json.recordsFiltered;
           // json.data = json.data;
           // this.persons = json.data;
-          
+
           console.log(JSON.parse(resp));
 
           console.log('The received data from server: ', resp);
@@ -60,10 +69,8 @@ export class ClientIndexComponent implements OnInit {
       },
       columns: [
         { data: 'sno' },
-        { data: 'id' },
         { data: 'number_of_accounts_profiled' },
         { data: 'name' },
-        { data: 'unique_id' },
         { data: 'is_active' },
         { data: 'created_at' },
       ],
@@ -82,8 +89,9 @@ export class ClientIndexComponent implements OnInit {
     this.submitted = true;
     this.clientsService.storeClient(this.clientForm.value).subscribe({
       next: (res) => {
-        // this.dtOptions.ajax.reload();
-        this.submitted = true;
+        const modal:any = document.getElementById('clientModal')
+        modal.style.display= 'none'
+        this.submitted = false;
         console.log(res);
         Swal.fire({
           title: res.message,
@@ -93,8 +101,14 @@ export class ClientIndexComponent implements OnInit {
         });
         setTimeout(() => {
           this.clientForm.reset();
+          this.showAdd = false;
         }, 2000);
       },
     });
+  }
+
+  closeDialog() {
+    this.clientForm.reset();
+    this.showAdd = false;
   }
 }

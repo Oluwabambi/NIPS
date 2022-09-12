@@ -12,7 +12,7 @@ export class AccountsService {
   }
 
   debitBulkAccountProfiling(data: any) {
-    return this.apiService.post('accounts/profile_bulk_debit_account', data);
+    return this.apiService.postFile('accounts/profile_bulk_debit_account', data);
   }
 
   banks() {

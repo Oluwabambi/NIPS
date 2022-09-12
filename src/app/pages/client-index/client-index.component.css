@@ -7,3 +7,64 @@
     width: 100%;
     overflow: auto;
 }
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #333333b3;
+    z-index: 1;
+}
+.addForm {
+    z-index: 99;
+    background-color: white;
+    max-width: 500px;
+    margin: auto;
+    position: fixed;
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    padding: 10px;
+    left: 20%;
+    right: 20%;
+}
+.bi-x-lg {
+    position: absolute;
+    top: 0;
+    right: 4px;
+    cursor: pointer;
+}
+.bi::before {
+    font-weight: bold !important;
+}
+.modal-form {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+.form-f {
+    width: 58%;
+}
+.mod-btn {
+    width: 40%;
+}
+.modal-dialog {
+    margin-top: 3rem;
+}
+.anim {
+    animation: showModal 0.5s linear;
+    top: 10%;
+    display: block;
+}
+@keyframes showModal {
+    from {
+        opacity: 0;
+        top: 0;
+    }
+    to {
+        opacity: 1;
+        top: 10%;
+    }
+}

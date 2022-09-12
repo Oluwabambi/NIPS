@@ -2,36 +2,55 @@
     <app-sidebar></app-sidebar>
     <div class="main-content">
       <div class="p-5">
-            <form [formGroup]="clientForm" class="pb-4" (ngSubmit)="storeClient()">
-                <div class="d-flex align-items-end pb-3">
-                    <div>
-                        <label for="">Client name:</label>
-                        <input class="form-control" type="text" formControlName="name">
-                    </div>
-                    <button class="btn btn-primary" type="submit">Store</button>
-                </div>
-                <app-toggle-status [active]="toggled"></app-toggle-status>
-            </form>
+        <h1>Clients</h1>
+        <!-- Button trigger modal -->
+        <button (click)="showAdd = true" type="button" class="btn mb-3 btn-success">
+          Add Client
+        </button>
+
+      <!-- Modal -->
+      <div *ngIf="showAdd" class="overlay"></div>
+      <div *ngIf="showAdd" class="modal" [ngClass]="{'anim': showAdd}" id="clientModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" id="exampleModalLabel">Add Client</h2>
+              <button type="button" (click)="closeDialog()" class="btn-close" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="clientForm">
+                  <div class="modal-form">
+                      <div class="form-f">
+                          <label>Client name:</label>
+                          <input class="form-control" type="text" formControlName="name">
+                      </div>
+                  </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button class="btn mod-btn btn-primary" (click)="storeClient()" type="submit">{{submitted ? 'Loading' : 'Store'}}</button>
+            </div>
+          </div>
+        </div>
+      </div> 
+
+      <!-- Datatable -->
         <div class="table-contain">    
-          <table datatable #dTable [dtOptions]="dtOptions" class="row-border hover">
+          <table datatable id="clientTable" #dTable [dtOptions]="dtOptions" class="table row-border table-striped hover">
             <thead>
               <tr>
-                <th>sno</th>
-                <th>id</th>
-                <th>number_of_accounts_profiled</th>
-                <th>name</th>
-                <th>unique_id</th>
-                <th>is_active</th>
-                <th>created_at</th>
+                <th>S/No</th>
+                <th>Number Of Accounts</th>
+                <th>Name</th>
+                <th>Active?</th>
+                <th>Date Created</th>
               </tr>
             </thead>
             <tbody *ngIf="persons?.length != 0">
               <tr *ngFor="let person of persons">
                 <td>{{ person.sno }}</td>
-                <td>{{ person.id }}</td>
                 <td>{{ person.number_of_accounts_profiled }}</td>
                 <td>{{ person.name }}</td>
-                <td>{{ person.unique_id }}</td>
                 <td>{{ person.is_active }}</td>
                 <td>{{ person.created_at }}</td>
               </tr>

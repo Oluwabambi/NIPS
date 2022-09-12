@@ -5,3 +5,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .dataTables_empty {
     display: none;
 }
+div.dt-buttons {
+    margin-left: 20px;
+}

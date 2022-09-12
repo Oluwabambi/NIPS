@@ -6,8 +6,6 @@
     width: 220px;
 }
 .logo {
-    /* padding-top: 10px;
-    padding-bottom: 10px; */
     padding: 10px 30px;
     /* text-align: center; */
     color: white;
@@ -21,8 +19,17 @@
     list-style-type: none;
 }
 .menu-link {
-    display: inline-block;
+    display: block;
     padding: 10px 30px;
     text-decoration: none;
     color: white;
+    transition: all 0.25s;
+}
+.menu-link:hover {
+    background-color: #cacaca;
+    color: black;
+}
+.active-tab {
+    background-color: #cacaca;
+    color: black;
 }

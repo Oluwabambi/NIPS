@@ -1,36 +1,93 @@
-<div class="contain">
-    <app-sidebar></app-sidebar>
-    <div class="main-content">
-        <!-- <ng-select [(ngModel)]="selectedBank">
-            <ng-option *ngFor="let bank of banks" [value]="bank.id">{{bank.bank_name}}</ng-option>
-        </ng-select> -->
-
-        <!-- <ng-select [items]="clients" bindLabel="name" bindValue="id" [(ngModel)]="selectedClient"></ng-select> -->
-        <form [formGroup]="form">
-            <h1 class="text-white">Debit Account Profiling</h1>
-            <ng-container formArrayName="arrayData">
-            <!-- <ng-container [formGroup]="accountForm"> -->
-                <ng-container *ngFor="let data of arrayData.controls; index as i">
-                    <div class="pb-3" [formGroupName]="i" >
-                        <input formControlName="mandate_ref" type="text">
-
-                        <input formControlName="account_number" type="text">
-                        
-                        <ng-select formControlName="bank_code">
-                            <ng-option *ngFor="let bank of banks" [value]="bank.bank_code">{{bank.bank_name}}</ng-option>
-                        </ng-select>
-                        
-                        <ng-select formControlName="client_id">
-                            <ng-option *ngFor="let client of clients" [value]="client.id">{{client.name}}</ng-option>
-                        </ng-select>
-                        <span>X</span>
+<button (click)="addAccounts = true" class="mb-3 me-3 btn btn-success">Add Accounts</button>
+<button (click)="addFiles = true" class="mb-3 btn btn-success">Bulk Accounts (CSV)</button>
+<div *ngIf="addFiles || addAccounts" class="overlay"></div>
+<div *ngIf="addFiles ||addAccounts" class="modal" [ngClass]="{'anim': addFiles ||addAccounts}" id="clientModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="exampleModalLabel">Add Account</h2>
+                <button type="button" (click)="closeDialog()" class="btn-close" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="client">
+                    <label>Client Name <span class="text-danger">*</span></label>
+                    <ng-select required class="mb-4" [items]="clients" bindLabel="name" bindValue="id" [(ngModel)]="selectedClient" #client="ngModel"></ng-select>
+                    <div *ngIf="client.invalid && (client.touched || client.dirty)" class="err-msg">
+                        <div *ngIf="client.errors?.['required']">Client is required</div>
                     </div>
-                </ng-container>
-            </ng-container>
-            <br>
-            <button class="btn btn-primary" (click)="addForm()">Add</button>
-        </form>
 
-        <button (click)="submit()" class="btn btn-primary">Send data</button>
+                    <ngx-dropzone *ngIf="addFiles" class="dropz" (change)="onSelect($event)">
+                        <ngx-dropzone-label>Drop your files here or <span class="fw-bold">Browse</span></ngx-dropzone-label>
+                        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                    </ngx-dropzone>
+                    <div class="d-grid col-2 mb-2">
+                        <button (click)="sendData()" class="btn btn-primary">Upload</button>
+                    </div>
+                </div>
+                <form *ngIf="addAccounts" [formGroup]="form">
+                    <ng-container formArrayName="arrayData">
+                        <ng-container *ngFor="let data of arrayData.controls; index as i">
+                            <div class="sect pb-3" [formGroupName]="i" >
+                                <span class="x-mark" *ngIf="i != 0" (click)="delete(i)" >X</span>
+                                <p class="fw-bold">{{i+1}}.</p>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label class="form-label">Mandate Reference <span class="text-danger">*</span></label>
+                                        <input class="inp" formControlName="mandate_ref" type="text">
+                                        <div *ngIf="accountForm.get('mandate_ref')?.invalid && (accountForm.get('mandate_ref')?.touched || accountForm.get('mandate_ref')?.dirty)" class="err-msg text-danger">
+                                            <div *ngIf="accountForm.get('mandate_ref')?.hasError('required')">
+                                                Mandate Reference is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Account Number <span class="text-danger">*</span></label>
+                                        <input class="inp" formControlName="account_number" type="text" maxlength="10">
+                                        <div *ngIf="accountForm.get('account_number')?.invalid && (accountForm.get('account_number')?.touched || accountForm.get('account_number')?.dirty)" class="err-msg text-danger">
+                                            <div *ngIf="accountForm.get('account_number')?.hasError('required')">
+                                                Account Number is required
+                                            </div>
+                                            <div *ngIf="accountForm.get('account_number')?.hasError('minlength')">
+                                                Must be 10 numbers
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Bank Name <span class="text-danger">*</span></label>
+                                        <ng-select formControlName="bank_code">
+                                            <ng-option *ngFor="let bank of banks" [value]="bank.bank_code">{{bank.bank_name}}</ng-option>
+                                        </ng-select>
+                                        <div *ngIf="accountForm.get('bank_code')?.invalid && (accountForm.get('bank_code')?.touched || accountForm.get('bank_code')?.dirty)" class="err-msg text-danger">
+                                            <div *ngIf="accountForm.get('bank_code')?.hasError('required')">
+                                                Bank Code is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col">
+                                        <label>Client Name</label>
+                                        <ng-select id="client_id">
+                                            <ng-option *ngFor="let client of clients" [value]="client.id">{{client.name}}</ng-option>
+                                        </ng-select>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    <!-- <br> -->
+                    <div class="d-grid col-2 mb-2">
+                        <button class="btn btn-primary" (click)="addForm()">Add</button>
+                    </div>
+                    <div class="d-grid col-3">
+                        <button (click)="submit()" class="btn btn-primary">Send data</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
 </div>

@@ -13,6 +13,7 @@ import { DebitAccountProfilingComponent } from './debit-account-profiling/debit-
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { TransactionIndexComponent } from './transaction-index/transaction-index.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { TransactionIndexComponent } from './transaction-index/transaction-index
     ReactiveFormsModule,
     DataTablesModule,
     NgSelectModule,
-    FormsModule
+    FormsModule,
+    NgxDropzoneModule,
   ],
 })
 export class PagesModule {}

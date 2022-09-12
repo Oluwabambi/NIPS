@@ -3,13 +3,13 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-transaction-index',
   templateUrl: './transaction-index.component.html',
-  styleUrls: ['./transaction-index.component.css']
+  styleUrls: ['./transaction-index.component.css'],
 })
 export class TransactionIndexComponent implements OnInit {
   dtOptions: any = {};
   transactions: any = [];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -18,7 +18,7 @@ export class TransactionIndexComponent implements OnInit {
       processing: true,
       pageLength: 10,
       ajax: {
-        url: 'http://102.68.170.27/nip-mini/public/index.php/api/v1/transactions/datatable',
+        url: 'https://102.68.170.27/nip-mini/public/index.php/api/v1/transactions/datatable',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
@@ -53,5 +53,4 @@ export class TransactionIndexComponent implements OnInit {
       ],
     };
   }
-
 }

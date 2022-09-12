@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -6,7 +12,6 @@ import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2';
 import { Subject } from 'rxjs';
 declare const $: any;
-
 
 class DataTablesResponse {
   data!: any[];
@@ -21,14 +26,12 @@ class DataTablesResponse {
   styleUrls: ['client-index.component.css'],
 })
 export class ClientIndexComponent implements OnInit {
-
   toggled: boolean = false;
   submitted: boolean = false;
   showAdd: boolean = false;
   dtOptions: any = {};
   persons: any = [];
   pageable: any;
-
 
   constructor(
     private http: HttpClient,
@@ -48,7 +51,7 @@ export class ClientIndexComponent implements OnInit {
       serverSide: true,
       processing: true,
       ajax: {
-        url: 'http://102.68.170.27/nip-mini/public/index.php/api/v1/clients/datatable',
+        url: 'https://102.68.170.27/nip-mini/public/index.php/api/v1/clients/datatable',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
@@ -89,8 +92,8 @@ export class ClientIndexComponent implements OnInit {
     this.submitted = true;
     this.clientsService.storeClient(this.clientForm.value).subscribe({
       next: (res) => {
-        const modal:any = document.getElementById('clientModal')
-        modal.style.display= 'none'
+        const modal: any = document.getElementById('clientModal');
+        modal.style.display = 'none';
         this.submitted = false;
         console.log(res);
         Swal.fire({

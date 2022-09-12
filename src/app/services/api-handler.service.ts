@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiHandlerService {
-  private baseUrl = 'https://102.68.170.27/nip-mini/public/index.php/api/v1';
+  private baseUrl = 'http://102.68.170.27/nip-mini/public/index.php/api/v1';
   private token = localStorage.getItem('token');
   // token = LoginComponent.login();
 

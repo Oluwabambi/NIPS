@@ -23,6 +23,10 @@
                       <div class="form-f">
                           <label>Client name:</label>
                           <input class="form-control" type="text" formControlName="name">
+                          <div class="text-danger" *ngIf="clientForm.get('name')?.invalid && ( clientForm.get('name')?.touched || clientForm.get('name')?.dirty )">
+                            <div *ngIf="clientForm.get('name')?.hasError('required')">Name is required</div>
+                            <div *ngIf="clientForm.get('name')?.hasError('pattern')">No special characters allowed</div>
+                          </div>
                       </div>
                   </div>
               </form>

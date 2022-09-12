@@ -26,6 +26,7 @@ export class ApiHandlerService {
   public headerForUpload() {
     let headers = new HttpHeaders();
     headers = headers.set('Accept', 'application/json');
+    headers = headers.set('Access-Control-Allow-Origin', '*');
     // headers = ['Accept'] = 'application/json';
     headers = headers.set('Authorization', 'Bearer ' + this.token);
 

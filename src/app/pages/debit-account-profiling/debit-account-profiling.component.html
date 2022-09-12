@@ -12,20 +12,21 @@
                 <div class="client">
                     <form [formGroup]="cForm">
                         <label>Client Name <span class="text-danger">*</span></label>
-                        <ng-select class="mb-4" [items]="clients" bindLabel="name" bindValue="id" formControlName="client_id" ></ng-select>
-                        <div *ngIf="cForm.invalid && (cForm.touched || cForm.dirty)" class="err-msg">
-                            <div *ngIf="cForm.errors?.['required']">Client is required</div>
+                        <ng-select class="mb-2" [items]="clients" bindLabel="name" bindValue="id" formControlName="client_id" ></ng-select>
+                        <div *ngIf="cForm.get('client_id')?.invalid && (cForm.get('client_id')?.touched || cForm.get('client_id')?.dirty)" class="text-danger">
+                            <div *ngIf="cForm.get('client_id')?.hasError('required')">Client is required</div>
                         </div>
                     </form>
-
-                    <ngx-dropzone *ngIf="addFiles" class="dropz" (change)="onSelect($event)">
-                        <ngx-dropzone-label>Drop your files here or <span class="fw-bold">Browse</span></ngx-dropzone-label>
-                        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                        </ngx-dropzone-preview>
-                    </ngx-dropzone>
-                    <div class="d-grid col-2 mb-2">
-                        <button (click)="sendData()" class="btn btn-primary">Upload</button>
+                    <div *ngIf="addFiles">
+                        <ngx-dropzone class="dropz" (change)="onSelect($event)">
+                            <ngx-dropzone-label>Drop your files here or <span class="fw-bold">Browse</span></ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                        <div class="d-grid col-2 mb-2">
+                            <button [disabled]="cForm.invalid || !files" (click)="sendData()" class="btn btn-primary">Upload</button>
+                        </div>
                     </div>
                 </div>
                 <form *ngIf="addAccounts" [formGroup]="form">
@@ -53,6 +54,9 @@
                                             </div>
                                             <div *ngIf="accountForm.get('account_number')?.hasError('minlength')">
                                                 Must be 10 numbers
+                                            </div>
+                                            <div *ngIf="accountForm.get('account_number')?.hasError('pattern')">
+                                                Only numbers are allowed
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +89,7 @@
                         <button class="btn btn-primary" (click)="addForm()">Add</button>
                     </div>
                     <div class="d-grid col-3">
-                        <button (click)="submit()" class="btn btn-primary">Send data</button>
+                        <button [disabled]="form.invalid" (click)="submit()" class="btn btn-primary">Send data</button>
                     </div>
 
                 </form>

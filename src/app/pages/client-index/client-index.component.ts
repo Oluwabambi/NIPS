@@ -8,9 +8,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
-import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2';
-import { Subject } from 'rxjs';
 declare const $: any;
 
 class DataTablesResponse {
@@ -40,7 +38,7 @@ export class ClientIndexComponent implements OnInit {
   ) {}
 
   clientForm = this.fb.group({
-    name: new FormControl('', Validators.required),
+    name: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z0-9]+')]),
   });
 
   ngOnInit(): void {

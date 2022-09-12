@@ -16,6 +16,9 @@
     background-color: #333333b3;
     z-index: 1;
 }
+.modal-dialog {
+    max-width: 400px;
+}
 .addForm {
     z-index: 99;
     background-color: white;
@@ -45,7 +48,7 @@
     padding-top: 1rem;
 }
 .form-f {
-    width: 58%;
+    width: 100%;
 }
 .mod-btn {
     width: 40%;

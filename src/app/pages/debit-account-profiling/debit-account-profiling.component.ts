@@ -21,6 +21,7 @@ export class DebitAccountProfilingComponent implements OnInit {
   toAdd: boolean = false;
   addFiles: boolean = false;
   addAccounts: boolean = false;
+  submitted: boolean = false;
 
   constructor(
     private accountsService: AccountsService,
@@ -34,15 +35,16 @@ export class DebitAccountProfilingComponent implements OnInit {
     this.getBanks();
   }
 
-  cForm = new FormGroup({
-    client_id: new FormControl('', Validators.required)
-  })
+  cForm = this.fb.group({
+    client_id: new FormControl('', Validators.required),
+  });
 
   accountForm = new FormGroup({
     mandate_ref: new FormControl('', Validators.required),
     account_number: new FormControl('', [
       Validators.required,
       Validators.minLength(10),
+      Validators.pattern('[0-9]+'),
     ]),
     bank_code: new FormControl(this.selectedBank, Validators.required),
     // client_id: new FormControl(this.selectedClient, Validators.required),
@@ -88,6 +90,7 @@ export class DebitAccountProfilingComponent implements OnInit {
   }
 
   debitAccountProfiling(data: any) {
+    this.submitted = true;
     this.accountProfile = {
       client_id: this.cForm.value.client_id,
       ...data,
@@ -102,6 +105,7 @@ export class DebitAccountProfilingComponent implements OnInit {
       .debitAccountProfiling(JSON.stringify(this.accountProfile))
       .subscribe({
         next: (res) => {
+          this.submitted = false;
           console.log(res);
           this.addAccounts = false;
           this.accountForm.reset();
@@ -138,10 +142,12 @@ export class DebitAccountProfilingComponent implements OnInit {
   }
 
   sendData() {
+    this.submitted = true
     this.sendInfo.append('client_id', this.selectedClient);
 
     this.accountsService.debitBulkAccountProfiling(this.sendInfo).subscribe({
       next: (res) => {
+        this.submitted = false
         console.log(res);
         Swal.fire({
           title: res.message,
@@ -149,9 +155,9 @@ export class DebitAccountProfilingComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000,
         });
-        setTimeout(()=> {
+        setTimeout(() => {
           this.addFiles = false;
-        }, 2000)
+        }, 2000);
       },
     });
   }
@@ -160,7 +166,6 @@ export class DebitAccountProfilingComponent implements OnInit {
     console.log(event);
     this.addedFile = event.addedFiles[0];
     this.files.push(...event.addedFiles);
-
     this.sendInfo = new FormData();
     this.sendInfo.append('list', this.addedFile);
   }
@@ -171,7 +176,11 @@ export class DebitAccountProfilingComponent implements OnInit {
   }
 
   closeDialog() {
-    // this.clientForm.reset();
+    this.cForm.reset();
+    this.accountForm.reset();
     this.addAccounts = this.addFiles = false;
+    while (this.arrayData.length != 1) {
+      this.arrayData.removeAt(this.arrayData.length - 1);
+    }
   }
 }

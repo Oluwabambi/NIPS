@@ -48,7 +48,7 @@ export class ClientIndexComponent implements OnInit {
       serverSide: true,
       processing: true,
       ajax: {
-        url: 'http://102.68.170.27/nip-mini/public/index.php/api/v1/clients/datatable',
+        url: 'https://102.68.170.27/nip-mini/public/index.php/api/v1/clients/datatable',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },

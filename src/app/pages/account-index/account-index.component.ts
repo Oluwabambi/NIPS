@@ -17,7 +17,7 @@ export class AccountIndexComponent implements OnInit {
       processing: true,
       pageLength: 10,
       ajax: {
-        url: 'http://102.68.170.27/nip-mini/public/index.php/api/v1/accounts/datatable',
+        url: 'https://102.68.170.27/nip-mini/public/index.php/api/v1/accounts/datatable',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },

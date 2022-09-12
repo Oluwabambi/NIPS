@@ -30,12 +30,12 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
-    this.submitted = false;
-    this.invalidUser = false;
-    console.log(res);
-    localStorage.setItem('token', res.message.user_token.token);
-    localStorage.setItem('loggedInUser', res.message.user);
-    this.router.navigateByUrl('index/clients');
+      this.submitted = false;
+      this.invalidUser = false;
+      console.log(res);
+      localStorage.setItem('token', res.message.user_token.token);
+      localStorage.setItem('loggedInUser', res.message.user);
+      this.router.navigateByUrl('index/clients');
       },
       error: (err) => {
         this.invalidUser = true;

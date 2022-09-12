@@ -34,6 +34,10 @@ export class DebitAccountProfilingComponent implements OnInit {
     this.getBanks();
   }
 
+  cForm = new FormGroup({
+    client_id: new FormControl('', Validators.required)
+  })
+
   accountForm = new FormGroup({
     mandate_ref: new FormControl('', Validators.required),
     account_number: new FormControl('', [
@@ -85,7 +89,7 @@ export class DebitAccountProfilingComponent implements OnInit {
 
   debitAccountProfiling(data: any) {
     this.accountProfile = {
-      client_id: this.selectedClient,
+      client_id: this.cForm.value.client_id,
       ...data,
     };
 

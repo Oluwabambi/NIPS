@@ -10,11 +10,13 @@
             </div>
             <div class="modal-body">
                 <div class="client">
-                    <label>Client Name <span class="text-danger">*</span></label>
-                    <ng-select required class="mb-4" [items]="clients" bindLabel="name" bindValue="id" [(ngModel)]="selectedClient" #client="ngModel"></ng-select>
-                    <div *ngIf="client.invalid && (client.touched || client.dirty)" class="err-msg">
-                        <div *ngIf="client.errors?.['required']">Client is required</div>
-                    </div>
+                    <form [formGroup]="cForm">
+                        <label>Client Name <span class="text-danger">*</span></label>
+                        <ng-select class="mb-4" [items]="clients" bindLabel="name" bindValue="id" formControlName="client_id" ></ng-select>
+                        <div *ngIf="cForm.invalid && (cForm.touched || cForm.dirty)" class="err-msg">
+                            <div *ngIf="cForm.errors?.['required']">Client is required</div>
+                        </div>
+                    </form>
 
                     <ngx-dropzone *ngIf="addFiles" class="dropz" (change)="onSelect($event)">
                         <ngx-dropzone-label>Drop your files here or <span class="fw-bold">Browse</span></ngx-dropzone-label>

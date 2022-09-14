@@ -25,7 +25,10 @@
                             </ngx-dropzone-preview>
                         </ngx-dropzone>
                         <div class="d-grid col-2 mb-2">
-                            <button [disabled]="cForm.invalid || !files" (click)="sendData()" class="btn btn-primary">Upload</button>
+                            <button [disabled]="cForm.invalid || files.length<1 || submitted" (click)="sendData()" class="btn btn-primary">
+                                <span *ngIf="submitted" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                {{submitted ? 'Uploading...': 'Upload'}}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -89,7 +92,10 @@
                         <button class="btn btn-primary" (click)="addForm()">Add</button>
                     </div>
                     <div class="d-grid col-3">
-                        <button [disabled]="form.invalid" (click)="submit()" class="btn btn-primary">Send data</button>
+                        <button [disabled]="form.invalid || submitted" (click)="submit()" class="btn btn-primary">
+                            <span *ngIf="submitted" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            {{submitted ? 'Sending...' : 'Send data'}}
+                        </button>
                     </div>
 
                 </form>

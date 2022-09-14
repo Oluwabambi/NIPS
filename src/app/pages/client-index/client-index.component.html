@@ -32,7 +32,8 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button class="btn mod-btn btn-primary" (click)="storeClient()" type="submit">{{submitted ? 'Loading' : 'Store'}}</button>
+              <button [disabled]="submitted || clientForm.invalid" class="btn mod-btn btn-primary" (click)="storeClient()" type="submit">
+                <span *ngIf="submitted" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>{{submitted ? 'Loading' : 'Store'}}</button>
             </div>
           </div>
         </div>
@@ -40,7 +41,7 @@
 
       <!-- Datatable -->
         <div class="table-contain">    
-          <table datatable id="clientTable" #dTable [dtOptions]="dtOptions" class="row-border hover">
+          <table datatable id="clientTable" #dTable [dtOptions]="dtOptions" class="row-border stripe nowrap hover">
             <thead>
               <tr>
                 <th>S/No</th>

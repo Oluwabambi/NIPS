@@ -7,6 +7,10 @@
 .client, .form {
     padding-bottom: 5px;
 }
+thead {
+    background-color: #404b5b;
+    color: white;
+}
 .inp {
     width: 100%;
     border: 1px solid #cccccd;

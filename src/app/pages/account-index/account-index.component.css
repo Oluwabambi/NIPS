@@ -10,3 +10,7 @@
 .modal-dialog {
     margin-top: 0px;
 }
+thead {
+    background-color: #404b5b;
+    color: white;
+}

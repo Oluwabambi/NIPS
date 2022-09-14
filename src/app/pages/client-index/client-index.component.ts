@@ -38,7 +38,7 @@ export class ClientIndexComponent implements OnInit {
   ) {}
 
   clientForm = this.fb.group({
-    name: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z0-9]+')]),
+    name: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z0-9 ]+[A-Za-z0-9 ]*')]),
   });
 
   ngOnInit(): void {

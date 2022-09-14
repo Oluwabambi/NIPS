@@ -7,3 +7,7 @@
     width: 100%;
     overflow: auto;
 }
+thead {
+    background-color: #404b5b;
+    color: white;
+}

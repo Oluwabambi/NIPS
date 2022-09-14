@@ -107,7 +107,6 @@ export class DebitAccountProfilingComponent implements OnInit {
         next: (res) => {
           this.submitted = false;
           console.log(res);
-          this.addAccounts = false;
           this.accountForm.reset();
           while (this.arrayData.length != 1) {
             this.arrayData.removeAt(this.arrayData.length - 1);
@@ -119,6 +118,7 @@ export class DebitAccountProfilingComponent implements OnInit {
             timer: 2000,
           });
           setTimeout(() => {
+            this.addAccounts = false;
             this.addFiles = false;
           }, 2000);
         },
@@ -149,6 +149,7 @@ export class DebitAccountProfilingComponent implements OnInit {
       next: (res) => {
         this.submitted = false
         console.log(res);
+        this.files = [];
         Swal.fire({
           title: res.message,
           icon: 'success',

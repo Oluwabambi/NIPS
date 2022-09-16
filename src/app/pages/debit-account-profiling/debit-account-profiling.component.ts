@@ -165,6 +165,7 @@ export class DebitAccountProfilingComponent implements OnInit {
 
   onSelect(event: any) {
     console.log(event);
+    console.log(event.addedFiles[0].name);
     this.addedFile = event.addedFiles[0];
     this.files.push(...event.addedFiles);
     this.sendInfo = new FormData();

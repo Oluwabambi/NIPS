@@ -15,4 +15,13 @@ export class AuthService {
   register(data: any) {
     return this.apiService.post('auth/registration', data);
   }
+
+  isLoggedIn() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return false;
+    } else {
+     return true;
+    }  
+  }
 }

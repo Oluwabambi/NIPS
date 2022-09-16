@@ -12,6 +12,7 @@
                     <tr>
                     <th>S/No</th>
                     <th>Client Name</th>
+                    <th>Bank Name</th>
                     <th>Account Name</th>
                     <th>Account Number</th>
                     <th>Bank Code</th>
@@ -21,13 +22,13 @@
                     <th>Name Enquiry ID</th>
                     <th>Mandate Reference</th>
                     <th>Date Created</th>
-                    <th>Date Updated</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="accounts?.length != 0">
                     <tr *ngFor="let account of accounts">
                     <td>{{ account.sno }}</td>
-                    <td>{{ account.client_name }}</td>
+                    <td>{{ account.clients__dot__name }}</td>
+                    <td>{{ account.banks__dot__name }}</td>
                     <td>{{ account.account_name }}</td>
                     <td>{{ account.account_number }}</td>
                     <td>{{ account.bank_code }}</td>
@@ -37,7 +38,6 @@
                     <td>{{ account.name_enquiry_id }}</td>
                     <td>{{ account.mandate_ref }}</td>
                     <td>{{ account.created_at }}</td>
-                    <td>{{ account.updated_at }}</td>
                     </tr>
                     <tr *ngIf="accounts?.length == 0">
                     <td colspan="3" class="no-data-available">No data!</td>

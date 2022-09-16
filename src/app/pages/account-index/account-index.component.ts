@@ -34,7 +34,6 @@ export class AccountIndexComponent implements OnInit {
       },
       columns: [
         { data: 'sno' },
-        { data: 'client_name' },
         { data: 'account_name' },
         { data: 'account_number' },
         { data: 'bank_code' },
@@ -44,7 +43,8 @@ export class AccountIndexComponent implements OnInit {
         { data: 'name_enquiry_id' },
         { data: 'mandate_ref' },
         { data: 'created_at' },
-        { data: 'updated_at' },
+        { data: 'clients__dot__name' },
+        { data: 'banks__dot__name' }
       ],
       dom: 'lBfrtip',
       buttons: ['copy', 'print', 'excel'],

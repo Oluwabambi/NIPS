@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment as env } from 'src/environments/environment';
 
 @Component({
   selector: 'app-transaction-index',
@@ -18,7 +19,7 @@ export class TransactionIndexComponent implements OnInit {
       processing: true,
       pageLength: 10,
       ajax: {
-        url: 'https://102.68.170.27/nip-mini/public/index.php/api/v1/transactions/datatable',
+        url: env.TRANSACTION_TABLE,
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
@@ -33,18 +34,18 @@ export class TransactionIndexComponent implements OnInit {
       },
       columns: [
         { data: 'sno' },
+        { data: 'client__dot__name' },
+        { data: 'source_bank__dot__bank_name' },
         { data: 'source_account_no' },
         { data: 'source_bank_code' },
+        { data: 'beneficiary_bank__dot__bank_name' },
+        { data: 'schedule_beneficiaries__dot__account_number' },
+        { data: 'schedule_beneficiaries__dot__bank_code' },
         { data: 'schedule_id' },
         { data: 'amount' },
         { data: 'tried_amount' },
         { data: 'successful_payment' },
         // { data: 'response_code_meaning' },
-        { data: 'schedule_beneficiaries__dot__account_number' },
-        { data: 'schedule_beneficiaries__dot__bank_code' },
-        { data: 'source_bank__dot__bank_name' },
-        { data: 'beneficiary_bank__dot__bank_name' },
-        { data: 'client__dot__name' },
       ],
       dom: 'lBfrtip',
       buttons: [

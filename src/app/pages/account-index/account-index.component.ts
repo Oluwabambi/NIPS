@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+ import { environment as env } from 'src/environments/environment';
 @Component({
   selector: 'app-account-index',
   templateUrl: './account-index.component.html',
@@ -17,7 +17,7 @@ export class AccountIndexComponent implements OnInit {
       processing: true,
       pageLength: 10,
       ajax: {
-        url: 'https://102.68.170.27/nip-mini/public/index.php/api/v1/accounts/datatable',
+        url: env.ACCOUNT_TABLE,
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
@@ -34,6 +34,8 @@ export class AccountIndexComponent implements OnInit {
       },
       columns: [
         { data: 'sno' },
+        { data: 'clients__dot__name' },
+        { data: 'banks__dot__name' },
         { data: 'account_name' },
         { data: 'account_number' },
         { data: 'bank_code' },
@@ -43,8 +45,6 @@ export class AccountIndexComponent implements OnInit {
         { data: 'name_enquiry_id' },
         { data: 'mandate_ref' },
         { data: 'created_at' },
-        { data: 'clients__dot__name' },
-        { data: 'banks__dot__name' }
       ],
       dom: 'lBfrtip',
       buttons: ['copy', 'print', 'excel'],

@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { environment as env } from 'src/environments/environment';
 declare const $: any;
 
 class DataTablesResponse {
@@ -49,7 +50,7 @@ export class ClientIndexComponent implements OnInit {
       serverSide: true,
       processing: true,
       ajax: {
-        url: 'https://102.68.170.27/nip-mini/public/index.php/api/v1/clients/datatable',
+        url: env.CLIENT_TABLE,
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment as env } from 'src/environments/environment';
 // import { LoginComponent } from '../auth/login/login.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiHandlerService {
-  private baseUrl = 'https://102.68.170.27/nip-mini/public/index.php/api/v1';
+  private baseUrl = env.BASE_URL;
   private token = localStorage.getItem('token');
   // token = LoginComponent.login();
 

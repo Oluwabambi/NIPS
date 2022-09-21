@@ -11,4 +11,8 @@ export class TransactionsService {
   transactionRequery(data: any) {
     return this.apiService.post('re-query?schedule_id=739292841139XTCWXGKNFI', data);
   }
+
+  getTransactionsById(id: any) {
+    return this.apiService.get('')
+  }
 }

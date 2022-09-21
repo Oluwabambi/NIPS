@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PagesComponent } from './pages.component';
 import { DebitAccountProfilingComponent } from './debit-account-profiling/debit-account-profiling.component';
 import { TransactionIndexComponent } from './transaction-index/transaction-index.component';
+import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'accounts', component: AccountIndexComponent },
       { path: 'transactions', component: TransactionIndexComponent },
+      { path: 'transactions/details', component: TransactionDetailsComponent },
       { path: 'account-profiling', component: DebitAccountProfilingComponent },
     ],
   },

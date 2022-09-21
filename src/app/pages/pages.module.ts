@@ -14,6 +14,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { TransactionIndexComponent } from './transaction-index/transaction-index.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     DashboardComponent,
     DebitAccountProfilingComponent,
     TransactionIndexComponent,
+    TransactionDetailsComponent,
   ],
   imports: [
     CommonModule,

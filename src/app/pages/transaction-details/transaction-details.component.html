@@ -2,10 +2,12 @@
 <div class="main-content">
         <div class="p-5">
             <!-- <h1>Transactions</h1> -->
+
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">Transactions</li>
-                </ol>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/index/transactions">Transactions</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Details</li>
+            </ol>
             </nav>
             <div class="table-contain">
                 <table datatable id="dTable" [dtOptions]="dtOptions" class="row-border stripe nowrap hover">
@@ -27,7 +29,7 @@
                         </tr>
                     </thead>
                     <tbody *ngIf="transactions?.length != 0">
-                        <tr (click)="showDetails()" class="t-data" *ngFor="let data of transactions">
+                        <tr class="t-data" *ngFor="let data of transactions">
                             <td>{{data.sno}}</td>
                             <td>{{data.client__dot__name}}</td>
                             <td>{{data.source_bank__dot__bank_name}}</td>

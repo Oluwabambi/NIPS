@@ -8,7 +8,7 @@ import { environment as env } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ApiHandlerService {
-  private baseUrl = env.BASE_URL;
+  private baseUrl = env.API_URL + env.API_VERSION;
   private token = localStorage.getItem('token');
   // token = LoginComponent.login();
 

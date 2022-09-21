@@ -7,6 +7,9 @@
 .client, .form {
     padding-bottom: 5px;
 }
+.breadcrumb-item {
+    font-size: 20px;
+}
 thead {
     background-color: #404b5b;
     color: white;

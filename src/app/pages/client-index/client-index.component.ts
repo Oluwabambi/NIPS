@@ -50,7 +50,7 @@ export class ClientIndexComponent implements OnInit {
       serverSide: true,
       processing: true,
       ajax: {
-        url: env.CLIENT_TABLE,
+        url: env.API_URL + env.API_VERSION + '/' + env.CLIENTS,
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },

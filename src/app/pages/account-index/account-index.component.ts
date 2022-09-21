@@ -17,7 +17,7 @@ export class AccountIndexComponent implements OnInit {
       processing: true,
       pageLength: 10,
       ajax: {
-        url: env.ACCOUNT_TABLE,
+        url: env.API_URL + env.API_VERSION + '/' + env.ACCOUNTS,
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },

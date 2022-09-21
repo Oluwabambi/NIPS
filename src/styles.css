@@ -8,3 +8,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 div.dt-buttons {
     margin-left: 20px;
 }
+table.dataTable tbody tr {
+    cursor: pointer;
+}

@@ -1,15 +1,11 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { environment as env } from 'src/environments/environment';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs'; 
 declare const $: any;
 
 class DataTablesResponse {
@@ -31,6 +27,11 @@ export class ClientIndexComponent implements OnInit {
   dtOptions: any = {};
   persons: any = [];
   pageable: any;
+  showing: boolean = false;
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement!: DataTableDirective;
+
+  dtTrigger: Subject<any> = new Subject();
 
   constructor(
     private http: HttpClient,
@@ -39,7 +40,10 @@ export class ClientIndexComponent implements OnInit {
   ) {}
 
   clientForm = this.fb.group({
-    name: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z0-9 ]+[A-Za-z0-9 ]*')]),
+    name: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[A-Za-z0-9 ]+[A-Za-z0-9 ]*'),
+    ]),
   });
 
   ngOnInit(): void {
@@ -51,9 +55,6 @@ export class ClientIndexComponent implements OnInit {
       processing: true,
       ajax: {
         url: env.API_URL + env.API_VERSION + '/' + env.CLIENTS,
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
-        },
         type: 'POST',
         contentType: 'application/json',
         dataFilter: (resp: any) => {
@@ -76,16 +77,35 @@ export class ClientIndexComponent implements OnInit {
         { data: 'is_active' },
         { data: 'created_at' },
       ],
-      dom: 'lBfrtip',
-      buttons: [
-        // 'columnsToggle',
-        // 'colvis',
-        'copy',
-        'print',
-        'excel',
-      ],
+      // dom: "lBf<'overflow-auto w-100't>rip",
+      dom:
+        "<'row '<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4 text-right'frt>>" +
+        "<'row '<'col-sm-12 overflow-auto w-100'tr>>" +
+        "<'row '<'col-sm-5'i><'col-sm-7'p>>",
+      buttons: {
+        buttons: [
+          {
+            extend: 'copy', className: 'table-btn'
+          },
+          {
+            extend: 'print', className: 'table-btn'
+          },
+          {
+            extend: 'excel', className: 'table-btn'
+          }
+        ]
+      }
     };
   }
+
+  // rerender(): void {
+  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //     // Destroy the table first
+  //     dtInstance.destroy();
+  //     // Call the dtTrigger to rerender again
+  //     this.dtTrigger.next(true);
+  //   });
+  // }
 
   storeClient() {
     this.submitted = true;

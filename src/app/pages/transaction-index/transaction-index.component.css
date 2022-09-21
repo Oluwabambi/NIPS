@@ -3,10 +3,10 @@
     min-height: 100vh;
     overflow: scroll;
 }
-.table-contain {
+/* .table-contain {
     width: 100%;
     overflow: auto;
-}
+} */
 thead {
     background-color: #404b5b;
     color: white;

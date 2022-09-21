@@ -25,7 +25,12 @@ export class TransactionDetailsComponent implements OnInit {
     processing: true,
     pageLength: 10,
     ajax: {
-      url: env.API_URL + env.API_VERSION  + '/transactions/' + this.scheduleId + '/datatable',
+      url:
+        env.API_URL +
+        env.API_VERSION +
+        '/transactions/' +
+        this.scheduleId +
+        '/datatable',
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
@@ -51,16 +56,13 @@ export class TransactionDetailsComponent implements OnInit {
       { data: 'amount' },
       { data: 'tried_amount' },
       { data: 'successful_payment' },
-      // { data: 'response_code_meaning' },
     ],
-    dom: 'lBftrip',
-    buttons: [
-      // 'columnsToggle',
-      // 'colvis',
-      'copy',
-      'print',
-      'excel',
-    ],
+    // dom: 'lBftrip',
+    dom:
+      "<'row '<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4 text-right'frt>>" +
+      "<'row '<'col-sm-12 overflow-auto w-100'tr>>" +
+      "<'row '<'col-sm-5'i><'col-sm-7'p>>",
+    buttons: ['copy', 'print', 'excel'],
   };    
 
   }

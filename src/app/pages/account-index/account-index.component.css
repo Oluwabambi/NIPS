@@ -6,10 +6,6 @@
 .breadcrumb-item {
     font-size: 20px;
 }
-.table-contain {
-    width: 100%;
-    overflow: auto;
-}
 .modal-dialog {
     margin-top: 0px;
 }

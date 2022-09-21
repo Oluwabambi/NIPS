@@ -46,7 +46,11 @@ export class AccountIndexComponent implements OnInit {
         { data: 'mandate_ref' },
         { data: 'created_at' },
       ],
-      dom: 'lBfrtip',
+      // dom: "lBf<'overflow-auto w-100't>rip",
+      dom:
+        "<'row '<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4 text-right'frt>>" +
+        "<'row '<'col-sm-12 overflow-auto w-100'tr>>" +
+        "<'row '<'col-sm-5'i><'col-sm-7'p>>",
       buttons: ['copy', 'print', 'excel'],
     };
   }

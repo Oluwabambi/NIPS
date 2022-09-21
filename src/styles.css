@@ -11,3 +11,12 @@ div.dt-buttons {
 table.dataTable tbody tr {
     cursor: pointer;
 }
+.table-btn {
+    background-color: #404b5b;
+    color: white;
+}
+.page-link {
+    color: #404b5b;
+    border: none;
+    border-radius: 50%;
+}

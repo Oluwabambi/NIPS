@@ -22,7 +22,8 @@ import { MatCardModule } from '@angular/material/card';
   imports: [CommonModule, RouterModule, MatSlideToggleModule, MatCardModule],
   exports: [
     SidebarComponent,
-    ToggleStatusComponent
+    ToggleStatusComponent,
+    HeaderComponent
   ],
 })
 export class SharedModule {}

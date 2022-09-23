@@ -84,15 +84,9 @@ export class ClientIndexComponent implements OnInit {
         "<'row '<'col-sm-5'i><'col-sm-7'p>>",
       buttons: {
         buttons: [
-          {
-            extend: 'copy', className: 'table-btn'
-          },
-          {
-            extend: 'print', className: 'table-btn'
-          },
-          {
-            extend: 'excel', className: 'table-btn'
-          }
+          'copy',
+          'print',
+          'excel'
         ]
       }
     };

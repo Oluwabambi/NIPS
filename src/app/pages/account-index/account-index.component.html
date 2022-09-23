@@ -1,4 +1,5 @@
 <div class="contain">
+    <app-header></app-header>
     <app-sidebar></app-sidebar>
     <div class="main-content">
         <div class="p-5">
@@ -12,7 +13,7 @@
             <app-debit-account-profiling></app-debit-account-profiling>
                         
             <div class="table-contain">
-                <table datatable [dtOptions]="dtOptions" class="table table-striped nowrap">
+                <table datatable [dtOptions]="dtOptions" class="table table-striped table-hover nowrap">
                 <thead>
                     <tr>
                     <th>S/No</th>

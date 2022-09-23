@@ -15,8 +15,19 @@ table.dataTable tbody tr {
     background-color: #404b5b;
     color: white;
 }
-.page-link {
+.page-link, .page-link:hover  {
     color: #404b5b;
     border: none;
     border-radius: 50%;
+    background-color: transparent;
+}
+.disabled>.page-link, .page-link.disabled {
+    background-color: transparent;
+}
+.active>.page-link, .page-link.active {
+    border-radius: 50%;
+    background-color: #198754;
+}
+.active>.page-link:hover {
+    color: white;
 }

@@ -2,7 +2,7 @@
     background-color: #efefef;
 }
 .main-content {
-    margin-left: 220px;
+    margin-left: 95px;
     min-height: 100vh;
     overflow: scroll;
 }
@@ -75,5 +75,10 @@ thead {
     to {
         opacity: 1;
         top: 10%;
+    }
+}
+@media (min-width: 992px) {
+    .main-content {
+        margin-left: 220px;
     }
 }

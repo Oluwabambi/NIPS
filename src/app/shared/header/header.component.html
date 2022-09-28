@@ -1,40 +1,40 @@
-<nav class="navbar m-left navbar-expand-lg py-3">
+<nav class="navbar m-left navbar-expand-lg py-lg-3">
   <div class="container-fluid px-4">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse mt-med navbar-collapse" id="navbarSupportedContent">
       <form class="h-form" role="search">
         <i class="bi bi-search"></i>
         <input class="h-input" type="search" placeholder="Search" aria-label="Search">
         <button class="btn h-btn" type="submit">Search</button>
       </form>
-      <ul class="navbar-nav align-items-center ms-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav align-items-center flex-row ms-auto mb-2 mb-lg-0">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <!-- <i class="bi bi-person-circle"></i> -->
             <img src="./assets/blackmansuit.jpg" alt="Admin Avi">
             <p class="fw-bold mb-0">Admin</p>
           </a>
-          <ul class="dropdown-menu">
+          <!-- <ul class="dropdown-menu">
             <li><a class="dropdown-item" routerLink="/index/dashboard">Dashboard</a></li>
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+          </ul> -->
         </li>
         <li class="nav-item">
-          <a href="" class="nav-link">
+          <a href="" class="p-2 nav-link">
             <i class="bi bi-bell"></i>
           </a>
         </li>
         <li class="nav-item">
-          <a href="" class="nav-link">
+          <a href="" class="p-2 nav-link">
             <i class="bi bi-gear"></i>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="logout()" href="#">
+          <a class="p-2 nav-link" (click)="logout()" href="#">
             <i class="bi bi-box-arrow-right"></i>
           </a>
         </li>

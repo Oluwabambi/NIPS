@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientsService } from 'src/app/services/clients/clients.service';
  import { environment as env } from 'src/environments/environment';
 @Component({
   selector: 'app-account-index',
@@ -7,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountIndexComponent implements OnInit {
   accounts: any = [];
+  clients: any = [];
   dtOptions: any = {};
-  constructor() {}
+  selectedClient = 'All Clients'
+  
+  constructor( private clientsService: ClientsService ) {}
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -35,9 +39,9 @@ export class AccountIndexComponent implements OnInit {
       columns: [
         { data: 'sno' },
         { data: 'clients__dot__name' },
-        { data: 'banks__dot__name' },
-        { data: 'account_name' },
         { data: 'account_number' },
+        { data: 'account_name' },
+        { data: 'banks__dot__name' },
         { data: 'bank_code' },
         { data: 'nibss_institution_code' },
         { data: 'bvn' },
@@ -53,5 +57,17 @@ export class AccountIndexComponent implements OnInit {
         "<'row '<'col-sm-5'i><'col-sm-7'p>>",
       buttons: ['copy', 'print', 'excel'],
     };
+
+    this.getClients();
+  }
+
+  getClients() {
+    this.clientsService.clients().subscribe({
+      next: (res) => {
+        console.log(res);
+        
+        this.clients = res.data
+      }
+    })
   }
 }

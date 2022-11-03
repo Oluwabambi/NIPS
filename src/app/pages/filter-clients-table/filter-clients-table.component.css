@@ -37,9 +37,6 @@ thead {
     left: 20%;
     right: 20%;
 }
-.filter-sect {
-    align-items: flex-end;
-}
 .bi-x-lg {
     position: absolute;
     top: 0;

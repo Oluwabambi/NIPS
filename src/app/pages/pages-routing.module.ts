@@ -7,6 +7,8 @@ import { PagesComponent } from './pages.component';
 import { DebitAccountProfilingComponent } from './debit-account-profiling/debit-account-profiling.component';
 import { TransactionIndexComponent } from './transaction-index/transaction-index.component';
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
+import { FilterClientsTableComponent } from './filter-clients-table/filter-clients-table.component';
+import { FilterTransactionsTableComponent } from './filter-transactions-table/filter-transactions-table.component';
 
 const routes: Routes = [
   {
@@ -19,6 +21,8 @@ const routes: Routes = [
       { path: 'transactions', component: TransactionIndexComponent },
       { path: 'transactions/details', component: TransactionDetailsComponent },
       { path: 'account-profiling', component: DebitAccountProfilingComponent },
+      { path: 'clients/filter', component: FilterClientsTableComponent },
+      { path: 'transactions/filter', component: FilterTransactionsTableComponent },
     ],
   },
 ];

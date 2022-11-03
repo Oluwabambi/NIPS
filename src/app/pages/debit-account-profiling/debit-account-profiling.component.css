@@ -36,6 +36,11 @@ thead {
     margin-bottom: 10px;
     justify-content: center;
 }
+.links-cont {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .overlay {
     position: fixed;
     top: 0;

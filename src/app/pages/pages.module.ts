@@ -15,6 +15,11 @@ import { FormsModule } from '@angular/forms';
 import { TransactionIndexComponent } from './transaction-index/transaction-index.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { FilterTransactionsTableComponent } from './filter-transactions-table/filter-transactions-table.component';
+import { FilterClientsTableComponent } from './filter-clients-table/filter-clients-table.component';
 
 
 @NgModule({
@@ -26,6 +31,8 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
     DebitAccountProfilingComponent,
     TransactionIndexComponent,
     TransactionDetailsComponent,
+    FilterTransactionsTableComponent,
+    FilterClientsTableComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +43,9 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
     NgSelectModule,
     FormsModule,
     NgxDropzoneModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
   ],
 })
 export class PagesModule {}

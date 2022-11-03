@@ -24,11 +24,12 @@
                                 <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                             </ngx-dropzone-preview>
                         </ngx-dropzone>
-                        <div class="d-grid col-2 mb-2">
+                        <div class="links-cont mb-2">
                             <button [disabled]="cForm.invalid || files.length<1 || submitted" (click)="sendData()" class="btn btn-primary">
                                 <span *ngIf="submitted" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                                 {{submitted ? 'Uploading...': 'Upload'}}
                             </button>
+                            <a target="_blank" href="./assets/Account Fill Template.csv">Download CSV Template</a>
                         </div>
                     </div>
                 </div>

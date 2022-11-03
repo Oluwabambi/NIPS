@@ -14,6 +14,44 @@
           Add Client
         </button>
 
+        <form [formGroup]="clientForm">
+          <div class="row mb-5 filter-sect">
+                    <div class="col-sm-6 col-12">
+                        <form [formGroup]="clientForm">
+                            <label>Client Name <span class="text-danger">*</span></label>
+                            <ng-select (change)="onChange()" formControlName="name">
+                                <ng-option *ngFor="let client of clientsList" [value]="client.name">{{client.name}}</ng-option>
+                            </ng-select>
+                        </form>
+                    </div>
+                    <div class="col-sm-4 col-12">
+                        <div class="row">
+                            <div class="col">
+                                <label for="date_from">Filter By Date from:</label>
+                                <input (change)="dateChange(date_from.value)" #date_from class="form-control" type="date" name="Clients" id="date_from">
+                            </div>
+                            <div class="col">
+                                <label for="date_to">Filter By Date to:</label>
+                                <input class="form-control" type="date" name="Clients" id="date_to">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                            <button class="btn btn-primary" [disabled]="selectedClient === 'All Clients' || null" (click)="filter()">Filter</button>
+                    </div>
+        </div>
+      </form>  
+
+
+                        <!-- <div class="btn-group" role="group">
+                           <button type="button" class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
+                           <ul class="dropdown-menu">
+                               <li><button type="button" (click)="toggleStatus(client)" id="toggleStatus" class="dropdown-item" href="#">Toggle Status</button></li>
+                               <li><button type="button" (click)="editClient(client)" id="editClient" class="dropdown-item" href="#">Edit</button></li>
+                               <li><button type="button" (click)="viewAccounts(client)" id="viewAccounts" class="dropdown-item" href="#">View Accounts</button></li>
+                           </ul>
+                        </div> -->
+
       <!-- Modal -->
       <div *ngIf="showAdd" class="overlay"></div>
       <div *ngIf="showAdd" class="modal" [ngClass]="{'anim': showAdd}" id="clientModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -54,18 +92,27 @@
                 <th>Number Of Accounts</th>
                 <th>Name</th>
                 <th>Active?</th>
-                <th>Date Created</th>
+                <th>Date Created</th> 
+                <th>Action</th>
               </tr>
             </thead>
-            <tbody *ngIf="persons?.length != 0">
-              <tr *ngFor="let person of persons">
-                <td>{{ person.sno }}</td>
-                <td>{{ person.number_of_accounts_profiled }}</td>
-                <td>{{ person.name }}</td>
-                <td>{{ person.is_active }}</td>
-                <td>{{ person.created_at }}</td>
+            <tbody *ngIf="clients?.length != 0">
+              <tr *ngFor="let client of clients">
+                <td>{{ client.sno }}</td>
+                <td>{{ client.number_of_accounts_profiled }}</td>
+                <td>{{ client.name }}</td>
+                <td>{{ client.is_active }}</td>
+                <td>{{ client.created_at }}</td>
+                <td>
+                  <div class="btn-group" role="group">
+                           <button type="button" class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
+                           <ul class="dropdown-menu">
+                               <li><button type="button" (click)="toggleStatus(client)" id="toggleStatus" class="dropdown-item" href="#">Toggle Status</button></li>
+                           </ul>
+                        </div>
+                </td>
               </tr>
-              <tr *ngIf="persons?.length == 0">
+              <tr *ngIf="clients?.length == 0">
                 <td colspan="3" class="no-data-available">No data!</td>
               </tr>
             </tbody>

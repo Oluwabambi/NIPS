@@ -17,3 +17,6 @@ thead {
 .breadcrumb-item {
     font-size: 20px;
 }
+.filter-sect {
+    align-items: flex-end;
+}

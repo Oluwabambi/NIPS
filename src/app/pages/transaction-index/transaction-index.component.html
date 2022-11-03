@@ -9,6 +9,45 @@
                         <li class="breadcrumb-item active" aria-current="page">Transactions</li>
                     </ol>
                 </nav>
+                <form [formGroup]="clientForm">
+                <div class="row mb-5 filter-sect">
+                    <div class="col-sm-6 col-12">
+                        <form [formGroup]="clientForm">
+                            <label>Client Name <span class="text-danger">*</span></label>
+                            <ng-select (change)="onChange()" formControlName="client">
+                                <ng-option *ngFor="let client of clients"  [value]="client.id">{{client.name}}</ng-option>
+                            </ng-select>
+                        </form>
+                    </div>
+                    <div class="col-sm-4 col-12">
+                        <div class="row">
+                            <div class="col">
+                                <label for="date_from">Filter By Date from:</label>
+                                <input class="form-control" (change)="onDateChange()" formControlName="date_from" type="date" name="Clients" id="date_from">
+                            </div>
+                            <div class="col">
+                                <label for="date_to">Filter By Date to:</label>
+                                <input class="form-control" (change)="onDateChange()" formControlName="date_to" type="date" name="Clients" id="date_to">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                            <button class="btn btn-primary" type="submit" [disabled]="!dateChanged" (click)="filter()">Filter</button>
+
+                        <!-- <div class="btn-group" role="group">
+                           <button type="button" class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                           Actions
+                           </button>
+                           <ul class="dropdown-menu">
+                               <li><button type="button" (click)="showTransactions(transaction)" id="showTransactions" class="dropdown-item" href="#">Show Transactions</button></li>
+                               <li><button type="button" (click)="showSubTransactions(transaction)" id="showSubTransactions" class="dropdown-item" href="#">Show Sub-transactions</button></li>
+                               <li><button type="button" (click)="retryTransaction(transaction)" id="retry" class="dropdown-item" href="#">Retry</button></li>
+                           </ul>
+                        </div> -->
+                        <!-- <button class="btn btn-primary">Filter</button> -->
+                    </div>
+                </div>
+                </form>
                 <div class="table-contain">
                     <table datatable id="dTable" [dtOptions]="dtOptions" class="table table-striped table-hover nowrap">
                         <thead>
@@ -25,11 +64,12 @@
                                 <th>Amount</th>
                                 <th>Tried Amount</th>
                                 <th>Successful Payment</th>
+                                <th>Action</th>
                                 <!-- <th>Response Code Meaning</th> -->
                             </tr>
                         </thead>
                         <tbody *ngIf="transactions?.length != 0">
-                            <tr (click)="showDetails()" class="t-data" *ngFor="let data of transactions">
+                            <tr class="t-data" *ngFor="let data of transactions">
                                 <td>{{data.sno}}</td>
                                 <td>{{data.client__dot__name}}</td>
                                 <td>{{data.source_bank__dot__bank_name}}</td>
@@ -42,6 +82,7 @@
                                 <td>{{data.amount}}</td>
                                 <td>{{data.tried_amount}}</td>
                                 <td>{{data.successful_payment}}</td>
+                                <td>{{data.action}}</td>
                                 <!-- <td>{{data.response_code_meaning}}</td> -->
                             </tr>
                             <tr *ngIf="transactions?.length == 0">

@@ -31,3 +31,7 @@ table.dataTable tbody tr {
 .active>.page-link:hover {
     color: white;
 }
+#dropdownMenuButton {
+    position: relative;
+    z-index: 50;
+}

@@ -20,6 +20,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FilterTransactionsTableComponent } from './filter-transactions-table/filter-transactions-table.component';
 import { FilterClientsTableComponent } from './filter-clients-table/filter-clients-table.component';
+import { FilterAccountsTableComponent } from './filter-accounts-table/filter-accounts-table.component';
+import { ClientAccountIndexComponent } from './client-account-index/client-account-index.component';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { FilterClientsTableComponent } from './filter-clients-table/filter-clien
     TransactionDetailsComponent,
     FilterTransactionsTableComponent,
     FilterClientsTableComponent,
+    FilterAccountsTableComponent,
+    ClientAccountIndexComponent,
   ],
   imports: [
     CommonModule,

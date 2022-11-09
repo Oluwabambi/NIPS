@@ -9,7 +9,7 @@
 .breadcrumb-item {
     font-size: 20px;
 }
-thead {
+thead, tfoot {
     background-color: #404b5b;
     color: white;
 }

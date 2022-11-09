@@ -9,6 +9,8 @@ import { TransactionIndexComponent } from './transaction-index/transaction-index
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
 import { FilterClientsTableComponent } from './filter-clients-table/filter-clients-table.component';
 import { FilterTransactionsTableComponent } from './filter-transactions-table/filter-transactions-table.component';
+import { FilterAccountsTableComponent } from './filter-accounts-table/filter-accounts-table.component';
+import { ClientAccountIndexComponent } from './client-account-index/client-account-index.component';
 
 const routes: Routes = [
   {
@@ -23,6 +25,8 @@ const routes: Routes = [
       { path: 'account-profiling', component: DebitAccountProfilingComponent },
       { path: 'clients/filter', component: FilterClientsTableComponent },
       { path: 'transactions/filter', component: FilterTransactionsTableComponent },
+      { path: 'accounts/filter', component: FilterAccountsTableComponent },
+      { path: 'client/accounts', component: ClientAccountIndexComponent },
     ],
   },
 ];

@@ -3,6 +3,9 @@ import { environment as env } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { TransactionsService } from 'src/app/services/transactions/transactions.service';
+import Swal from 'sweetalert2';
+// declare var $;
 
 @Component({
   selector: 'app-transaction-index',
@@ -15,12 +18,16 @@ export class TransactionIndexComponent implements OnInit {
   clients: any = [];
   selectedClient: any = 'All Clients';
   dateChanged: any;
+  showReq: boolean = false;
+  params: any;
+  submitted: boolean = false;
 
   allClients = { id: 0, name: 'All Clients' };
 
   constructor(
     private router: Router,
     private clientsService: ClientsService,
+    private transactionsService: TransactionsService,
     private fb: FormBuilder
   ) {}
 
@@ -28,6 +35,12 @@ export class TransactionIndexComponent implements OnInit {
     client: new FormControl('All Clients', Validators.required),
     date_from: new FormControl('', Validators.required),
     date_to: new FormControl('', Validators.required),
+  });
+
+  requeryForm = this.fb.group({
+    date_from: new FormControl('', Validators.required),
+    date_to: new FormControl('', Validators.required),
+    schedule_id: new FormControl('', Validators.required),
   });
 
   ngOnInit(): void {
@@ -49,7 +62,6 @@ export class TransactionIndexComponent implements OnInit {
         dataFilter: (resp: any) => {
           let json = JSON.parse(resp);
           console.log(JSON.parse(resp));
-          console.log('The received data from server: ', resp);
           return JSON.stringify(json); // return JSON string
         },
       },
@@ -66,43 +78,41 @@ export class TransactionIndexComponent implements OnInit {
         { data: 'amount' },
         { data: 'tried_amount' },
         { data: 'successful_payment' },
-        { data: 'action' },
-        // { data: 'response_code_meaning' },
+        // { data: 'action' },
+        {
+          defaultContent: `
+                      <div class="btn-group" role="group">
+                         <button type="button" class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
+                         <ul class="dropdown-menu">
+                             <li><button type="button" (click)="viewDetails(client)" id="viewDetails" class="dropdown-item" href="#">View Details</button></li>
+                         </ul>
+                      </div>
+          `,
+        },
       ],
-      // dom: "lBf<'overflow-auto w-100't>rip",
       dom:
         "<'row '<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4 text-right'frt>>" +
         "<'row '<'col-sm-12 overflow-auto w-100'tr>>" +
         "<'row '<'col-sm-5'i><'col-sm-7'p>>",
-      buttons: [
-        // 'columnsToggle',
-        // 'colvis',
-        'copy',
-        'print',
-        'excel',
-      ],
-      // rowCallback: (row: Node, data: any[] | Object, index: number) => {
-      //   const self = this;
-      //   // Unbind first in order to avoid any duplicate handler
-      //   // (see https://github.com/l-lin/angular-datatables/issues/87)
-      //   // Note: In newer jQuery v3 versions, `unbind` and `bind` are
-      //   // deprecated in favor of `off` and `on`
-      //   $('td', row).off('click');
-      //   $('td', row).on('click', () => {
-      //     self.someClickHandler(data);
-      //   });
-      //   return row;
+      buttons: ['copy', 'print', 'excel'],
+      // initComplete: (settings:any, json:any) => {
+      //   alert('Datatables');
       // },
+      rowCallback: (row: Node, data: any[] | Object, index: number) => {
+        const self = this;
+        $('td', row).off('click');
+        $('td', row).on('click', '.dropdown-item', (e) => {
+          const buttonId = e.target.id;
+          if (buttonId === 'viewDetails') {
+            this.showTransactions(data);
+          }
+        });
+        return row;
+      },
     };
 
     console.log(this.dtOptions);
     this.getClients();
-  }
-
-  someClickHandler(info: any): void {
-    // alert(info.client__dot__name + ' - ' + info.sno);
-    localStorage.setItem('scheduleId', info.schedule_id);
-    this.router.navigateByUrl('index/transactions/details');
   }
 
   getClients() {
@@ -116,13 +126,62 @@ export class TransactionIndexComponent implements OnInit {
   }
 
   showTransactions(transaction: any) {
-    console.log('clicked', transaction);
+    localStorage.setItem('scheduleId', transaction.schedule_id);
+    this.router.navigateByUrl('index/transactions/details');
   }
-  showSubTransactions(transaction: any) {
-    console.log('clicked', transaction);
+  showSubTransactions() {
+    console.log('sub transactions');
   }
-  retryTransaction(transaction: any) {
-    console.log('clicked', transaction);
+  showRequery() {
+    this.showReq = true;
+  }
+  closeDialog() {
+    this.showReq = false;
+    this.requeryForm.reset()
+  }
+  requery() {
+    this.submitted = true
+    let subForm = this.requeryForm.value;
+    if (!subForm.schedule_id) {
+      if (!this.requeryForm.value.date_to) {
+        this.params = '?date_from=' + subForm.date_from;
+      } else {
+        this.params = `?date_from=${subForm.date_from}&date_to=${subForm.date_to}`;
+      }
+    } else if (!subForm.date_from) {
+      this.params = '?schedule_id=' + subForm.schedule_id;
+    } else {
+      this.params = `?schedule_id=${subForm.schedule_id}&date_from=${subForm.date_from}&date_to=${subForm.date_to}`;
+    }
+    console.log(this.params);
+
+    this.transactionsService.transactionRequery(this.params).subscribe({
+      next: (res) => {
+        this.requeryForm.reset();
+        console.log(res);
+        this.submitted = false
+        Swal.fire({
+          title: res.message,
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000
+        })
+        setTimeout( () => this.showReq=false, 2000 )
+      },
+      error: (err) => {
+        this.requeryForm.reset();
+        console.log(err);
+        this.submitted = false
+        Swal.fire({
+          title: err.message,
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        setTimeout( () => (this.showReq = false), 2000 );
+
+      },
+    });
   }
 
   onChange() {
@@ -131,6 +190,25 @@ export class TransactionIndexComponent implements OnInit {
 
   onDateChange() {
     this.dateChanged = true;
+  }
+
+  disableSubmit(newForm: any, newItem: any): boolean {
+    const noneValid =
+      !newItem && !newForm.value.date_from && !newForm.value.date_to;
+    if (noneValid) {
+      return true;
+    }
+    if (newForm.dirty) {
+      if (noneValid) {
+        return true;
+      }
+    } else if (newForm.pristine) {
+      return true;
+    }
+    if (!newForm.value.date_from && newForm.value.date_to) {
+      return true;
+    }
+    return false;
   }
 
   filter() {

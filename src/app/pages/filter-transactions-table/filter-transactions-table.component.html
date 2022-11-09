@@ -31,25 +31,25 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="transactions?.length != 0">
-                            <tr class="t-data" *ngFor="let data of transactions">
-                                <td>{{data.sno}}</td>
-                                <td>{{data.client__dot__name}}</td>
-                                <td>{{data.source_bank__dot__bank_name}}</td>
-                                <td>{{data.source_account_no}}</td>
-                                <td>{{data.source_bank_code}}</td>
-                                <td>{{data.beneficiary_bank__dot__bank_name}}</td>
-                                <td>{{data.schedule_beneficiaries__dot__account_number}}</td>
-                                <td>{{data.schedule_beneficiaries__dot__bank_code}}</td>
-                                <td>{{data.schedule_id}}</td>
-                                <td>{{data.amount}}</td>
-                                <td>{{data.tried_amount}}</td>
-                                <td>{{data.successful_payment}}</td>
-                                <!-- <td>{{data.response_code_meaning}}</td> -->
-                            </tr>
-                            <tr *ngIf="transactions?.length == 0">
-                        <td colspan="3" class="no-data-available">No data!</td>
-                        </tr>
+                            <!-- Data from server rendered here -->
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>sno</th>
+                                <th>Client Name</th>
+                                <th>Source Bank Name</th>
+                                <th>Source Account No.</th>
+                                <th>Source Bank Code</th>
+                                <th>Beneficiary Bank Name</th>
+                                <th>Beneficiary Account Number</th>
+                                <th>Beneficiary Bank Code</th>
+                                <th>Schedule ID</th>
+                                <th>Amount</th>
+                                <th>Tried Amount</th>
+                                <th>Successful Payment</th>
+                                <!-- <th>Response Code Meaning</th> -->
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

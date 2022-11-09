@@ -1,0 +1,70 @@
+<div class="contain">
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+    <div class="main-content">
+        <div class="p-4">
+
+            <!-- <h1>Accounts</h1> -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/index/clients">Clients</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{clientName}}</li>
+                </ol>
+            </nav>
+            <app-debit-account-profiling></app-debit-account-profiling>
+
+            <div class="row mb-5 filter-sect">
+                <div class="col-sm-6 col-12">
+                    <label>Client Name <span class="text-danger">*</span></label>
+                    <ng-select [(ngModel)]="selectedClient">
+                        <ng-option *ngFor="let client of clients" [value]="client.id">{{client.name}}</ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-sm-2">
+                    <button (click)="filter()" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+                        
+            <div class="table-contain">
+                <table datatable [dtOptions]="dtOptions" class="table table-striped table-hover nowrap">
+                    <thead>
+                        <tr>
+                        <th>S/No</th>
+                        <th>Client Name</th>
+                        <th>Account Number</th>
+                        <th>Account Name</th>
+                        <th>Bank Name</th>
+                        <th>Bank Code</th>
+                        <th>NIBSS Institution Code</th>
+                        <th>BVN</th>
+                        <th>KYC Level ID</th>
+                        <th>Name Enquiry ID</th>
+                        <th>Mandate Reference</th>
+                        <th>Date Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data from server rendered here -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                        <th>S/No</th>
+                        <th>Client Name</th>
+                        <th>Account Number</th>
+                        <th>Account Name</th>
+                        <th>Bank Name</th>
+                        <th>Bank Code</th>
+                        <th>NIBSS Institution Code</th>
+                        <th>BVN</th>
+                        <th>KYC Level ID</th>
+                        <th>Name Enquiry ID</th>
+                        <th>Mandate Reference</th>
+                        <th>Date Created</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

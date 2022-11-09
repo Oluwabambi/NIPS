@@ -1,36 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { environment as env } from 'src/environments/environment';
-import { FormBuilder, Validators, FormGroup, Form, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-account-index',
-  templateUrl: './account-index.component.html',
-  styleUrls: ['./account-index.component.css'],
+  selector: 'app-filter-accounts-table',
+  templateUrl: './filter-accounts-table.component.html',
+  styleUrls: ['./filter-accounts-table.component.css'],
 })
-export class AccountIndexComponent implements OnInit {
-
+export class FilterAccountsTableComponent implements OnInit {
   accounts: any = [];
   clients: any = [];
   dtOptions: any = {};
   selectedClient = 'All Clients';
+  params: any;
+  filteredAccount: any
 
-  accountForm = this.fb.group({
-    client_id: new FormControl('All Clients', [Validators.required]),
-    bank_code: new FormControl('', [Validators.required]),
-  })
-
-  constructor(private clientsService: ClientsService, private router: Router, private fb: FormBuilder) {}
+  constructor(private clientsService: ClientsService) {}
 
   ngOnInit(): void {
+
+    this.getClients();
+    this.getParams();
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       serverSide: true,
       processing: true,
       pageLength: 10,
       ajax: {
-        url: `${env.API_URL}${env.API_VERSION}/${env.ACCOUNTS}`,
+        url: `${env.API_URL}${env.API_VERSION}/${env.ACCOUNTS}${this.params}`,
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
@@ -38,6 +36,16 @@ export class AccountIndexComponent implements OnInit {
         contentType: 'application/json',
         dataFilter: (resp: any) => {
           let json = JSON.parse(resp);
+
+          console.log(json);
+          
+          if (json.data.length>0) {
+            const filteredName = json.data[0].clients__dot__name;
+            const filteredCode = json.data[0].bank_code; 
+            
+            this.filteredAccount = !filteredName ? filteredCode : filteredName;
+          }
+
 
           console.log(JSON.parse(resp));
 
@@ -59,6 +67,7 @@ export class AccountIndexComponent implements OnInit {
         { data: 'mandate_ref' },
         { data: 'created_at' },
       ],
+      // dom: "lBf<'overflow-auto w-100't>rip",
       dom:
         "<'row '<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4 text-right'frt>>" +
         "<'row '<'col-sm-12 overflow-auto w-100'tr>>" +
@@ -66,22 +75,28 @@ export class AccountIndexComponent implements OnInit {
       buttons: ['copy', 'print', 'excel'],
     };
 
-    this.getClients();
+    
   }
 
   getClients() {
     this.clientsService.clients().subscribe({
       next: (res) => {
         console.log(res);
-
         this.clients = res.data;
       },
     });
   }
-
-  filter(data: any) {
-    console.log(data);
-    localStorage.setItem('accountParams', JSON.stringify(data));
-    this.router.navigateByUrl('index/accounts/filter');
+  getParams() {
+    let paramsObj: any = localStorage.getItem('accountParams');
+    paramsObj = JSON.parse(paramsObj);
+    if (!paramsObj.bank_code) {
+      this.params = `?client_id=${paramsObj.client_id}`
+    } else if (!paramsObj.client_id) {
+      this.params = `?bank_code=${paramsObj.bank_code}`;
+    } else {
+      this.params = `?client_id=${paramsObj.client_id}&bank_code=${paramsObj.bank_code}`;
+    }
+    console.log(this.params);
+    
   }
 }

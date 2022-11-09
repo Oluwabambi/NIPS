@@ -2,26 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClientsService } from 'src/app/services/clients/clients.service';
 import { environment as env } from 'src/environments/environment';
-import { FormBuilder, Validators, FormGroup, Form, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-account-index',
-  templateUrl: './account-index.component.html',
-  styleUrls: ['./account-index.component.css'],
+  selector: 'app-client-account-index',
+  templateUrl: './client-account-index.component.html',
+  styleUrls: ['./client-account-index.component.css'],
 })
-export class AccountIndexComponent implements OnInit {
-
-  accounts: any = [];
-  clients: any = [];
+export class ClientAccountIndexComponent implements OnInit {
+  
+  accounts: any =[];
   dtOptions: any = {};
+  clientName: any;
+  client: any;
+  clients: any;
   selectedClient = 'All Clients';
-
-  accountForm = this.fb.group({
-    client_id: new FormControl('All Clients', [Validators.required]),
-    bank_code: new FormControl('', [Validators.required]),
-  })
-
-  constructor(private clientsService: ClientsService, private router: Router, private fb: FormBuilder) {}
+  clientId: any = localStorage.getItem('clientId')
+  
+  constructor( private clientsService: ClientsService, private router: Router ) {}
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -30,7 +27,7 @@ export class AccountIndexComponent implements OnInit {
       processing: true,
       pageLength: 10,
       ajax: {
-        url: `${env.API_URL}${env.API_VERSION}/${env.ACCOUNTS}`,
+        url: `${env.API_URL}${env.API_VERSION}/${env.CLIENT_ACCOUNTS}/${this.clientId}`,
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
@@ -38,10 +35,9 @@ export class AccountIndexComponent implements OnInit {
         contentType: 'application/json',
         dataFilter: (resp: any) => {
           let json = JSON.parse(resp);
-
+          this.client = json.data
+          this.clientName = this.client[0].clients__dot__name;
           console.log(JSON.parse(resp));
-
-          console.log('The received data from server: ', resp);
           return JSON.stringify(json); // return JSON string
         },
       },
@@ -72,16 +68,12 @@ export class AccountIndexComponent implements OnInit {
   getClients() {
     this.clientsService.clients().subscribe({
       next: (res) => {
-        console.log(res);
-
         this.clients = res.data;
       },
     });
   }
 
-  filter(data: any) {
-    console.log(data);
-    localStorage.setItem('accountParams', JSON.stringify(data));
+  filter() {
     this.router.navigateByUrl('index/accounts/filter');
   }
 }

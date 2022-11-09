@@ -22,19 +22,19 @@
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody *ngIf="clients?.length != 0">
-              <tr *ngFor="let client of clients">
-                <td>{{ client.sno }}</td>
-                <td>{{ client.number_of_accounts_profiled }}</td>
-                <td>{{ client.name }}</td>
-                <td>{{ client.is_active }}</td>
-                <td>{{ client.created_at }}</td>
-                <td>{{client.action}}</td>
-              </tr>
-              <tr *ngIf="clients?.length == 0">
-                <td colspan="3" class="no-data-available">No data!</td>
-              </tr>
+            <tbody>
+              <!-- Data from server rendered here -->
             </tbody>
+            <tfoot>
+              <tr>
+                <th>S/No</th>
+                <th>Number Of Accounts</th>
+                <th>Name</th>
+                <th>Active?</th>
+                <th>Date Created</th> 
+                <th>Action</th>
+              </tr>
+            </tfoot>
           </table>
         </div>
         </div>

@@ -14,6 +14,8 @@
           Add Client
         </button>
 
+        <!-- <button type="button" (click)="rerender()">Rerender</button> -->
+
         <form [formGroup]="clientForm">
           <div class="row mb-5 filter-sect">
                     <div class="col-sm-6 col-12">
@@ -23,18 +25,6 @@
                                 <ng-option *ngFor="let client of clientsList" [value]="client.name">{{client.name}}</ng-option>
                             </ng-select>
                         </form>
-                    </div>
-                    <div class="col-sm-4 col-12">
-                        <div class="row">
-                            <div class="col">
-                                <label for="date_from">Filter By Date from:</label>
-                                <input (change)="dateChange(date_from.value)" #date_from class="form-control" type="date" name="Clients" id="date_from">
-                            </div>
-                            <div class="col">
-                                <label for="date_to">Filter By Date to:</label>
-                                <input class="form-control" type="date" name="Clients" id="date_to">
-                            </div>
-                        </div>
                     </div>
                     <div class="col-sm-2">
                             <button class="btn btn-primary" [disabled]="selectedClient === 'All Clients' || null" (click)="filter()">Filter</button>
@@ -62,22 +52,52 @@
               <button type="button" (click)="closeDialog()" class="btn-close" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form [formGroup]="clientForm">
+              <form [formGroup]="addClientForm">
                   <div class="modal-form">
                       <div class="form-f">
                           <label>Client name:</label>
                           <input class="form-control" type="text" formControlName="name">
-                          <div class="text-danger" *ngIf="clientForm.get('name')?.invalid && ( clientForm.get('name')?.touched || clientForm.get('name')?.dirty )">
-                            <div *ngIf="clientForm.get('name')?.hasError('required')">Name is required</div>
-                            <div *ngIf="clientForm.get('name')?.hasError('pattern')">No special characters allowed</div>
+                          <div class="text-danger" *ngIf="addClientForm.get('name')?.invalid && ( addClientForm.get('name')?.touched || addClientForm.get('name')?.dirty )">
+                            <div *ngIf="addClientForm.get('name')?.hasError('required')">Name is required</div>
+                            <div *ngIf="addClientForm.get('name')?.hasError('pattern')">No special characters allowed</div>
                           </div>
                       </div>
                   </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button [disabled]="submitted || clientForm.invalid" class="btn mod-btn btn-primary" (click)="storeClient()" type="submit">
+              <button [disabled]="submitted || addClientForm.invalid" class="btn mod-btn btn-primary" (click)="storeClient()" type="submit">
                 <span *ngIf="submitted" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>{{submitted ? 'Loading' : 'Store'}}</button>
+            </div>
+          </div>
+        </div>
+      </div> 
+
+      <div *ngIf="showEdit" class="overlay"></div>
+      <div *ngIf="showEdit" class="modal" [ngClass]="{'anim': showEdit}" id="clientModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" id="exampleModalLabel">Add Client</h2>
+              <button type="button" (click)="closeDialog()" class="btn-close" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="editClientForm">
+                  <div class="modal-form">
+                      <div class="form-f">
+                          <label>Client name:</label>
+                          <input class="form-control" type="text" value="{{clientToEdit}}" placeholder="clientToEdit" formControlName="name">
+                          <div class="text-danger" *ngIf="editClientForm.get('name')?.invalid && ( editClientForm.get('name')?.touched || editClientForm.get('name')?.dirty )">
+                            <div *ngIf="editClientForm.get('name')?.hasError('required')">Name is required</div>
+                            <div *ngIf="editClientForm.get('name')?.hasError('pattern')">No special characters allowed</div>
+                          </div>
+                      </div>
+                  </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button [disabled]="submitted || editClientForm.invalid" class="btn mod-btn btn-primary" (click)="updateClient()" type="submit">
+                <span *ngIf="submitted" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>{{submitted ? 'Loading' : 'Update'}}</button>
             </div>
           </div>
         </div>
@@ -96,26 +116,19 @@
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody *ngIf="clients?.length != 0">
-              <tr *ngFor="let client of clients">
-                <td>{{ client.sno }}</td>
-                <td>{{ client.number_of_accounts_profiled }}</td>
-                <td>{{ client.name }}</td>
-                <td>{{ client.is_active }}</td>
-                <td>{{ client.created_at }}</td>
-                <td>
-                  <div class="btn-group" role="group">
-                           <button type="button" class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
-                           <ul class="dropdown-menu">
-                               <li><button type="button" (click)="toggleStatus(client)" id="toggleStatus" class="dropdown-item" href="#">Toggle Status</button></li>
-                           </ul>
-                        </div>
-                </td>
-              </tr>
-              <tr *ngIf="clients?.length == 0">
-                <td colspan="3" class="no-data-available">No data!</td>
-              </tr>
+            <tbody *ngIf="persons?.length != 0">
+              <!-- Data from server rendered here -->
             </tbody>
+            <tfoot>
+              <tr>
+                <th>S/No</th>
+                <th>Number Of Accounts</th>
+                <th>Name</th>
+                <th>Active?</th>
+                <th>Date Created</th> 
+                <th>Action</th>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>

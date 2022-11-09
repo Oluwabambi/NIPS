@@ -16,11 +16,11 @@ export class ClientsService {
   }
 
   clientStatusToggle(data: any, id: number) {
-    return this.apiService.post(`clients/toggle_status${id}`, data);
+    return this.apiService.post(`clients/toggle_status/${id}`, data);
   }
 
   updateClient(data: any, id: number) {
-    return this.apiService.patch(`clients${id}`, data);
+    return this.apiService.put(`clients/${id}`, data);
   }
 
   clientIndex(data: any) {

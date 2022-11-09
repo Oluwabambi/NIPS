@@ -8,11 +8,15 @@ export class TransactionsService {
   
   constructor(private readonly apiService: ApiHandlerService) {}
 
-  transactionRequery(data: any) {
-    return this.apiService.post('re-query?schedule_id=739292841139XTCWXGKNFI', data);
+  transactionRequery( params: any ) {
+    return this.apiService.get(`re-query${params}`);
   }
 
-  getTransactionsById(id: any) {
-    return this.apiService.get('')
+  retryTransaction( transactionId: any ) {
+    return this.apiService.get(`transaction/retry/${transactionId}`);
+  }
+
+  getTransactionsById( id: any ) {
+    return this.apiService.get('');
   }
 }

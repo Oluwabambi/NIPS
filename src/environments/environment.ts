@@ -8,6 +8,7 @@ export const environment = {
   API_VERSION: 'v1',
   CLIENTS: 'clients/datatable',
   ACCOUNTS: 'accounts/datatable',
+  CLIENT_ACCOUNTS: 'client_accounts/datatable',
   TRANSACTIONS: 'transactions/datatable',
 };
 

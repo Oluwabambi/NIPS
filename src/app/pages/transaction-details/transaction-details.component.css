@@ -2,7 +2,7 @@
     background-color: #efefef;
 }
 .main-content {
-    margin-left: 220px;
+    margin-left: 95px;
     min-height: 100vh;
     overflow: scroll;
 }
@@ -10,10 +10,15 @@
     width: 100%;
     overflow: auto;
 }
-thead {
+thead, tfoot {
     background-color: #404b5b;
     color: white;
 }
 .breadcrumb-item {
     font-size: 20px;
+}
+@media (min-width: 992px) {
+    .main-content {
+        margin-left: 220px;
+    }
 }

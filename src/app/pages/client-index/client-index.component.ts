@@ -249,10 +249,6 @@ export class ClientIndexComponent implements OnInit, OnDestroy {
     console.log(this.selectedClient);
   }
 
-  disableForm() {
-    
-  }
-
   dateChange(date: any) {
     console.log(date);
   }
